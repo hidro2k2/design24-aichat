@@ -59,7 +59,7 @@ export function Chatbox() {
   useEffect(() => {
     if (currentChat && currentChat.messages.length === 0) {
       const welcomeMessageId = addMessage(
-        "Hello! I'm your AI assistant for the DESIGN24 'AI Skills for Tour Guides' course. I'm here to help you learn how to use AI tools to enhance your tour guiding experience. Feel free to ask me anything about digital marketing, photography, AI tools, or any other course topics!",
+        "Xin chào! Tôi là trợ lý AI cho khóa học 'Kỹ năng AI cho Hướng dẫn viên Du lịch' của DESIGN24. Tôi ở đây để giúp bạn học cách sử dụng công cụ AI để nâng cao trải nghiệm hướng dẫn du lịch. Hãy thoải mái hỏi tôi bất cứ điều gì về marketing số, nhiếp ảnh, công cụ AI hoặc bất kỳ chủ đề khóa học nào khác!",
         false
       );
     }
@@ -73,8 +73,8 @@ export function Chatbox() {
 
     if (!isOnline) {
       toast({
-        title: "No Internet Connection",
-        description: "Please check your internet connection and try again.",
+        title: "Không có kết nối Internet",
+        description: "Vui lòng kiểm tra kết nối internet và thử lại.",
         variant: "destructive",
       });
       return;
@@ -82,8 +82,8 @@ export function Chatbox() {
 
     if (!geminiService.isConfigured()) {
       toast({
-        title: "API Key Required",
-        description: "Please refresh the page and enter your Gemini API key.",
+        title: "Yêu cầu API Key",
+        description: "Vui lòng làm mới trang và nhập khóa API Gemini của bạn.",
         variant: "destructive",
       });
       return;
@@ -123,13 +123,13 @@ export function Chatbox() {
       console.error('Error sending message:', error);
       const errorMessage = error instanceof Error 
         ? error.message 
-        : 'Sorry, I encountered an error. Please try again.';
+        : 'Xin lỗi, tôi gặp lỗi. Vui lòng thử lại.';
       
       addMessage(errorMessage, false);
       
       toast({
-        title: "Error",
-        description: "Failed to get AI response. Please try again.",
+        title: "Lỗi",
+        description: "Không thể nhận phản hồi từ AI. Vui lòng thử lại.",
         variant: "destructive",
       });
     } finally {
@@ -140,8 +140,8 @@ export function Chatbox() {
   const handleNewChat = () => {
     createNewChat();
     toast({
-      title: "New Chat Created",
-      description: "You can now start a fresh conversation.",
+      title: "Tạo cuộc trò chuyện mới",
+      description: "Bạn có thể bắt đầu cuộc trò chuyện mới.",
     });
   };
 
@@ -152,16 +152,16 @@ export function Chatbox() {
   const handleDeleteChat = (chatId: string) => {
     deleteChatSession(chatId);
     toast({
-      title: "Chat Deleted",
-      description: "The conversation has been removed.",
+      title: "Đã xóa cuộc trò chuyện",
+      description: "Cuộc trò chuyện đã được xóa.",
     });
   };
 
   const handleClearAllChats = () => {
     clearAllChatSessions();
     toast({
-      title: "All Chats Cleared",
-      description: "All conversations have been removed.",
+      title: "Đã xóa tất cả cuộc trò chuyện",
+      description: "Tất cả cuộc trò chuyện đã được xóa.",
     });
   };
 
@@ -189,10 +189,10 @@ export function Chatbox() {
             </div>
             <div className="min-w-0">
               <h2 className="font-semibold text-lg truncate">
-                {currentChat?.title || 'AI Chat Assistant'}
+                {currentChat?.title || 'Trợ lý AI'}
               </h2>
               <p className="text-xs text-muted-foreground truncate">
-                DESIGN24 • AI Skills for Tour Guides
+                DESIGN24 • Kỹ năng AI cho Hướng dẫn viên Du lịch
               </p>
             </div>
           </div>
@@ -218,7 +218,7 @@ export function Chatbox() {
               ) : (
                 <WifiOff className="w-3 h-3" />
               )}
-              <span className="hidden sm:inline">{isOnline ? 'Online' : 'Offline'}</span>
+              <span className="hidden sm:inline">{isOnline ? 'Trực tuyến' : 'Ngoại tuyến'}</span>
             </div>
           </div>
         </header>
@@ -230,14 +230,14 @@ export function Chatbox() {
               <Alert className="mb-4">
                 <AlertTriangle className="h-4 w-4" />
                 <AlertDescription>
-                  Please refresh the page and enter your Gemini API key to start chatting.
+                  Vui lòng làm mới trang và nhập khóa API Gemini để bắt đầu trò chuyện.
                   <Button 
                     variant="outline" 
                     size="sm" 
                     className="ml-2"
                     onClick={() => window.location.reload()}
                   >
-                    Refresh Page
+                    Làm mới trang
                   </Button>
                 </AlertDescription>
               </Alert>
@@ -250,13 +250,13 @@ export function Chatbox() {
                   <span className="text-primary-foreground font-bold text-2xl">D24</span>
                 </div>
                 <h3 className="text-xl font-semibold mb-2 gradient-text">
-                  Welcome to DESIGN24 AI Assistant
+                  Chào mừng đến với Trợ lý AI DESIGN24
                 </h3>
                 <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                  I'm here to help you master AI skills for tour guiding. Start by creating a new chat or asking me about any course topics!
+                  Tôi ở đây để giúp bạn thành thạo kỹ năng AI cho việc hướng dẫn du lịch. Hãy bắt đầu bằng cách tạo cuộc trò chuyện mới hoặc hỏi tôi về bất kỳ chủ đề khóa học nào!
                 </p>
                 <Button onClick={handleNewChat} variant="hero">
-                  Start Your First Chat
+                  Bắt đầu cuộc trò chuyện đầu tiên
                 </Button>
               </div>
             )}

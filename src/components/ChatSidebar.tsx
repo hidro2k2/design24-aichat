@@ -79,7 +79,7 @@ export function ChatSidebar({
           </div>
           <div>
             <h1 className="font-bold text-lg gradient-text">DESIGN24</h1>
-            <p className="text-xs text-muted-foreground">AI Chat Assistant</p>
+            <p className="text-xs text-muted-foreground">Trợ lý AI</p>
           </div>
         </div>
         
@@ -89,7 +89,7 @@ export function ChatSidebar({
           className="w-full"
         >
           <Plus className="w-5 h-5 mr-2" />
-          New Chat
+          Cuộc trò chuyện mới
         </Button>
       </div>
 
@@ -99,8 +99,8 @@ export function ChatSidebar({
           {sortedSessions.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
               <MessageSquare className="w-12 h-12 mx-auto mb-3 opacity-50" />
-              <p className="text-sm">No conversations yet</p>
-              <p className="text-xs">Start a new chat to begin</p>
+              <p className="text-sm">Chưa có cuộc trò chuyện nào</p>
+              <p className="text-xs">Bắt đầu cuộc trò chuyện mới</p>
             </div>
           ) : (
             <div className="space-y-1">
@@ -126,7 +126,7 @@ export function ChatSidebar({
                         <Clock className="w-3 h-3" />
                         <span>{formatTime(session.timestamp)}</span>
                         <span>•</span>
-                        <span>{session.messageCount} messages</span>
+                        <span>{session.messageCount} tin nhắn</span>
                       </div>
                     </div>
                     
@@ -146,13 +146,13 @@ export function ChatSidebar({
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle>Delete Chat</AlertDialogTitle>
+                          <AlertDialogTitle>Xóa cuộc trò chuyện</AlertDialogTitle>
                           <AlertDialogDescription>
-                            Are you sure you want to delete this conversation? This action cannot be undone.
+                            Bạn có chắc chắn muốn xóa cuộc trò chuyện này? Hành động này không thể hoàn tác.
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogCancel>Hủy</AlertDialogCancel>
                           <AlertDialogAction
                             onClick={() => {
                               onDeleteChat(session.id);
@@ -160,7 +160,7 @@ export function ChatSidebar({
                             }}
                             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                           >
-                            Delete
+                            Xóa
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
@@ -180,23 +180,23 @@ export function ChatSidebar({
             <AlertDialogTrigger asChild>
               <Button variant="outline" className="w-full text-destructive hover:bg-destructive/10">
                 <Trash2 className="w-4 h-4 mr-2" />
-                Clear All Chats
+                Xóa tất cả
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Clear All Conversations</AlertDialogTitle>
+                <AlertDialogTitle>Xóa tất cả cuộc trò chuyện</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Are you sure you want to delete ALL conversations? This action cannot be undone and will permanently remove all your chat history.
+                  Bạn có chắc chắn muốn xóa TẤT CẢ cuộc trò chuyện? Hành động này không thể hoàn tác và sẽ xóa vĩnh viễn toàn bộ lịch sử trò chuyện của bạn.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>Hủy</AlertDialogCancel>
                 <AlertDialogAction
                   onClick={onClearAllChats}
                   className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                 >
-                  Delete All
+                  Xóa tất cả
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>

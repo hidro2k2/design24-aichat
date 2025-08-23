@@ -44,7 +44,7 @@ export function ChatInput({ onSendMessage, isLoading, disabled = false }: ChatIn
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={disabled ? "Start a new chat to begin..." : "Type your message here... (Shift+Enter for new line)"}
+            placeholder={disabled ? "Bắt đầu cuộc trò chuyện mới..." : "Nhập tin nhắn của bạn... (Shift+Enter để xuống dòng)"}
             disabled={disabled || isLoading}
             className="min-h-[44px] max-h-[120px] resize-none py-3 px-4 text-sm border-border focus:ring-2 focus:ring-primary/20 focus:border-primary"
             rows={1}
@@ -67,8 +67,8 @@ export function ChatInput({ onSendMessage, isLoading, disabled = false }: ChatIn
       
       <div className="flex items-center justify-center mt-2">
         <p className="text-xs text-muted-foreground text-center">
-          Powered by <span className="gradient-text font-medium">DESIGN24</span> • 
-          AI Assistant for Tour Guides
+          Được hỗ trợ bởi <span className="gradient-text font-medium">DESIGN24</span> • 
+          Trợ lý AI cho Hướng dẫn viên Du lịch
         </p>
       </div>
     </div>
