@@ -1,14 +1,19 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useEffect } from 'react';
+import { Chatbox } from '@/components/Chatbox';
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  useEffect(() => {
+    // Update document title
+    document.title = 'DESIGN24 - AI Chat Assistant for Tour Guides';
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Professional AI chatbox for DESIGN24\'s AI Skills for Tour Guides course. Learn digital marketing, photography, AI tools, and more for tourism professionals.');
+    }
+  }, []);
+
+  return <Chatbox />;
 };
 
 export default Index;

@@ -18,6 +18,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				inter: ['Inter', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -25,8 +28,21 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
+					50: 'hsl(var(--color-primary-50))',
+					100: 'hsl(var(--color-primary-100))',
+					200: 'hsl(var(--color-primary-200))',
+					300: 'hsl(var(--color-primary-300))',
+					400: 'hsl(var(--color-primary-400))',
+					500: 'hsl(var(--color-primary-500))',
+					600: 'hsl(var(--color-primary-600))',
+					700: 'hsl(var(--color-primary-700))',
+					800: 'hsl(var(--color-primary-800))',
+					900: 'hsl(var(--color-primary-900))',
+					950: 'hsl(var(--color-primary-950))',
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					'gradient-start': 'hsl(var(--primary-gradient-start))',
+					'gradient-end': 'hsl(var(--primary-gradient-end))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -62,6 +78,16 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			boxShadow: {
+				'soft': 'var(--shadow-soft)',
+				'strong': 'var(--shadow-strong)',
+			},
+			backgroundImage: {
+				'chat-gradient': 'var(--chat-gradient)',
+			},
+			transitionProperty: {
+				'smooth': 'var(--transition-smooth)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
