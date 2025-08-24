@@ -59,7 +59,7 @@ export function Chatbox() {
   useEffect(() => {
     if (currentChat && currentChat.messages.length === 0) {
       const welcomeMessageId = addMessage(
-        "Xin chào! Tôi là trợ lý AI cho khóa học 'Kỹ năng AI cho Hướng dẫn viên Du lịch' của DESIGN24. Tôi ở đây để giúp bạn học cách sử dụng công cụ AI để nâng cao trải nghiệm hướng dẫn du lịch. Hãy thoải mái hỏi tôi bất cứ điều gì về marketing số, nhiếp ảnh, công cụ AI hoặc bất kỳ chủ đề khóa học nào khác!",
+        "Xin chào! Tôi là trợ lý AI cho khóa học 'Kỹ năng AI cho Hướng dẫn viên Du lịch' của 24DESIGN. Tôi ở đây để giúp bạn học cách sử dụng công cụ AI để nâng cao trải nghiệm hướng dẫn du lịch. Hãy thoải mái hỏi tôi bất cứ điều gì về marketing số, nhiếp ảnh, công cụ AI hoặc bất kỳ chủ đề khóa học nào khác!",
         false
       );
     }
@@ -192,7 +192,7 @@ export function Chatbox() {
                 {currentChat?.title || 'Trợ lý AI'}
               </h2>
               <p className="text-xs text-muted-foreground truncate">
-                DESIGN24 • Kỹ năng AI cho Hướng dẫn viên Du lịch
+                24DESIGN • Kỹ năng AI cho Hướng dẫn viên Du lịch
               </p>
             </div>
           </div>
@@ -250,7 +250,7 @@ export function Chatbox() {
                   <span className="text-primary-foreground font-bold text-2xl">D24</span>
                 </div>
                 <h3 className="text-xl font-semibold mb-2 gradient-text">
-                  Chào mừng đến với Trợ lý AI DESIGN24
+                  Chào mừng đến với Trợ lý AI 24DESIGN
                 </h3>
                 <p className="text-muted-foreground mb-6 max-w-md mx-auto">
                   Tôi ở đây để giúp bạn thành thạo kỹ năng AI cho việc hướng dẫn du lịch. Hãy bắt đầu bằng cách tạo cuộc trò chuyện mới hoặc hỏi tôi về bất kỳ chủ đề khóa học nào!
