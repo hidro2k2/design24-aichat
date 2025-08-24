@@ -201,12 +201,6 @@ const COURSE_DATABASE = {
     "skills": ["Live Chat Management", "Email Marketing", "CRM Usage", "Customer Feedback"],
     "tools": ["Zendesk", "WhatsApp Business", "Mailchimp", "HubSpot"]
   },
-  "content_creation": {
-    "title": "Content Creation & Storytelling",
-    "description": "Create engaging content across multiple platforms to attract tourists",
-    "skills": ["Video Editing", "Blog Writing", "Podcast Creation", "Live Streaming"],
-    "tools": ["Adobe Premiere", "WordPress", "Anchor", "OBS Studio"]
-  },
   "virtual_tours": {
     "title": "Virtual & Augmented Reality Tours",
     "description": "Create immersive virtual experiences for remote tourists",
@@ -233,32 +227,86 @@ const COURSE_DATABASE = {
   }
 };
 
+// Context router to select relevant database sections
+function buildContextFromDB(query: string): string {
+  const q = (query || "").toLowerCase();
+  const blocks: string[] = [];
+
+  // ==== about / liên hệ ====
+  const about = COURSE_DATABASE["00-about-design24"] as any;
+  const askAbout = /(giới\s*thiệu|about|thông tin|liên hệ|contact|điện thoại|hotline|số\s*điện\s*thoại|địa chỉ|ở đâu|address|phone)/i.test(q);
+  if (about?.knowledge && askAbout) {
+    const k = about.knowledge;
+    blocks.push([
+      "ABOUT DESIGN24",
+      `Overview: ${k.company_overview}`,
+      `Services: ${k.core_services.join("; ")}`,
+      `Hotline: ${k.contacts.phone.join(" / ")}`,
+      `Email: ${k.contacts.email}`,
+      `Addresses: ${k.locations.join(" | ")}`,
+      `Tax ID: ${k.contacts.tax_id}`
+    ].join("\n"));
+  }
+
+  // ==== content creation ====
+  const needContent = /(content|nội dung|caption|blog|seo|tiêu đề|hashtag)/i.test(q);
+  const cc = COURSE_DATABASE["01-content-creation"] as any;
+  if (cc?.knowledge && needContent) {
+    blocks.push([
+      "CONTENT CREATION",
+      `Best practices: ${cc.knowledge.best_practices.join("; ")}`,
+      `Frameworks: AIDA, PAS, FAB`,
+      `Templates: ideation/outline/post`
+    ].join("\n"));
+  }
+
+  // fallback: nếu không khớp gì, vẫn nhét summary about ngắn để bot có danh tính
+  if (!blocks.length && about?.knowledge) {
+    const k = about.knowledge;
+    blocks.push([
+      "ABOUT DESIGN24 (brief)",
+      `Overview: ${k.company_overview}`,
+      `Services: ${k.core_services.slice(0,5).join("; ")}`
+    ].join("\n"));
+  }
+
+  return blocks.join("\n\n").slice(0, 6000);
+}
+
 class GeminiService {
   private apiKey: string;
   private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
 
   constructor() {
-    // API key is securely configured
-    this.apiKey = 'AIzaSyC_X_16KDxqOh1WMe7rnMEQf3ChBuG_Yu8';
+    // Read API key from environment variables
+    this.apiKey = (import.meta as any)?.env?.VITE_GEMINI_API_KEY || (process as any)?.env?.GEMINI_API_KEY || "";
+    
+    if (!this.apiKey) {
+      throw new Error('Gemini API key not configured. Please set VITE_GEMINI_API_KEY in your environment.');
+    }
   }
 
   private getSystemPrompt(): string {
-    return `You are an AI assistant for DESIGN24's "AI Skills for Tour Guides" course. You help tour guides learn and apply AI technologies in their work.
+    const about = COURSE_DATABASE["00-about-design24"] as any;
+    const k = about?.knowledge;
+    const facts = k ? `
+COMPANY QUICK FACTS:
+- Services: ${k.core_services.join(", ")}
+- Hotline: ${k.contacts.phone.join(" / ")} | Email: ${k.contacts.email}
+- Addresses: ${k.locations.join(" | ")}
+` : "";
 
-Course Information:
-${Object.entries(COURSE_DATABASE).map(([key, course]) => 
-  `${course.title}: ${course.description}\nSkills: ${course.skills.join(', ')}\nTools: ${course.tools.join(', ')}`
-).join('\n\n')}
+    return `Bạn là trợ lý AI của DESIGN24 cho khoá "AI Skills for Tour Guides".
+Giọng: thân thiện, chuyên nghiệp, ưu tiên trả lời ngắn gọn, actionable.
+
+${facts}
 
 Guidelines:
-- Be helpful, professional, and encouraging
-- Provide practical advice related to tourism and AI skills
-- Reference specific course modules when relevant
-- Keep responses concise but informative
-- Focus on actionable insights for tour guides
-- Maintain a friendly, expert tone
-
-Always aim to help tour guides understand how AI can enhance their work and improve tourist experiences.`;
+- Trả lời bằng tiếng Việt.
+- Khi câu hỏi liên quan giới thiệu/liên hệ/địa chỉ/số điện thoại → dùng dữ liệu ABOUT.
+- Khi câu hỏi về content/SEO/blog/caption → dùng dữ liệu CONTENT CREATION.
+- Nếu thiếu dữ liệu → hỏi lại theo rulebook (mục tiêu, đối tượng, kênh, độ dài).
+`;
   }
 
   private escapeHtml(text: string): string {
@@ -279,13 +327,25 @@ Always aim to help tour guides understand how AI can enhance their work and impr
         .map(msg => `${msg.isUser ? 'User' : 'Assistant'}: ${msg.message}`)
         .join('\n');
 
-      const fullPrompt = `${this.getSystemPrompt()}
+      // Get relevant context from database
+      const context = buildContextFromDB(userMessage);
 
-${conversationHistory ? `Previous conversation:\n${conversationHistory}\n` : ''}
+      const fullPrompt = `
+Chỉ dùng dữ liệu trong CONTEXT để trả lời; nếu thiếu, đặt câu hỏi làm rõ.
+Trả lời bằng **tiếng Việt**, súc tích, đúng trọng tâm.
 
-User: ${userMessage}
+CONTEXT:
+${context || "(trống)"}
 
-Please provide a helpful response:`;
+${conversationHistory ? `Lược sử:\n${conversationHistory}\n` : ''}
+
+Câu hỏi: ${userMessage}
+
+Nếu câu hỏi là về giới thiệu/thông tin cơ sở/điện thoại/địa chỉ, hãy trả về:
+- Hotline, Email
+- Địa chỉ (dạng danh sách)
+- Dịch vụ cốt lõi (1–2 dòng)
+`.trim();
 
       const requestBody = {
         contents: [{
@@ -294,10 +354,10 @@ Please provide a helpful response:`;
           }]
         }],
         generationConfig: {
-          temperature: 0.7,
+          temperature: 0.3,
           topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 1024,
+          topP: 0.9,
+          maxOutputTokens: 800,
         },
         safetySettings: [
           {
