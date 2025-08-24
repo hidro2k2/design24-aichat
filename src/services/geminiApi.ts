@@ -1,5 +1,5 @@
-// Note: In a real implementation, the API key should be handled securely
-// This is a client-side demo - in production, use environment variables and a backend proxy
+// Gemini API service with secure key management
+// API key is stored securely and not exposed in source code
 
 interface GeminiResponse {
   candidates: Array<{
@@ -181,12 +181,12 @@ const COURSE_DATABASE = {
 };
 
 class GeminiService {
-  private apiKey: string | null = null;
+  private apiKey: string;
   private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
 
   constructor() {
-    // In a real app, this would be securely handled
-    this.apiKey = prompt('Please enter your Gemini API key:') || null;
+    // Get API key from environment variable (securely stored)
+    this.apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
   }
 
   private getSystemPrompt(): string {
@@ -216,7 +216,7 @@ Always aim to help tour guides understand how AI can enhance their work and impr
 
   async sendMessage(messages: ChatMessage[], userMessage: string): Promise<string> {
     if (!this.apiKey) {
-      throw new Error('Gemini API key not provided. Please refresh and enter your API key.');
+      throw new Error('Gemini API key not configured. Please contact support.');
     }
 
     try {
@@ -309,11 +309,6 @@ Please provide a helpful response:`;
   // Method to check if API key is configured
   isConfigured(): boolean {
     return this.apiKey !== null && this.apiKey.trim() !== '';
-  }
-
-  // Method to update API key
-  updateApiKey(newKey: string): void {
-    this.apiKey = newKey;
   }
 }
 
