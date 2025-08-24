@@ -278,8 +278,8 @@ class GeminiService {
   private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
 
   constructor() {
-    // Read API key from environment variables
-    this.apiKey = (import.meta as any)?.env?.VITE_GEMINI_API_KEY || (process as any)?.env?.GEMINI_API_KEY || "";
+    // Read API key from environment variables (Vite)
+    this.apiKey = (import.meta as any)?.env?.VITE_GEMINI_API_KEY || "";
     
     if (!this.apiKey) {
       throw new Error('Gemini API key not configured. Please set VITE_GEMINI_API_KEY in your environment.');
