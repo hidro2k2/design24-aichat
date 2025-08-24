@@ -146,6 +146,23 @@ export function useChatSessions() {
     });
   }, [currentChatId, saveChatSessions]);
 
+  // Rename a chat session
+  const renameChatSession = useCallback((chatId: string, newTitle: string) => {
+    setChatSessions(prev => {
+      const session = prev[chatId];
+      if (!session) return prev;
+
+      const updatedSession: ChatSession = {
+        ...session,
+        title: newTitle.trim() || 'Untitled Chat',
+      };
+
+      const updatedSessions = { ...prev, [chatId]: updatedSession };
+      saveChatSessions(updatedSessions);
+      return updatedSessions;
+    });
+  }, [saveChatSessions]);
+
   // Clear all chat sessions
   const clearAllChatSessions = useCallback(() => {
     setChatSessions({});
@@ -164,6 +181,7 @@ export function useChatSessions() {
     addMessage,
     loadChatSession,
     deleteChatSession,
+    renameChatSession,
     clearAllChatSessions,
   };
 }

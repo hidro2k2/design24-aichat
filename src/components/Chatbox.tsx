@@ -27,6 +27,7 @@ export function Chatbox() {
     addMessage,
     loadChatSession,
     deleteChatSession,
+    renameChatSession,
     clearAllChatSessions,
   } = useChatSessions();
 
@@ -165,6 +166,14 @@ export function Chatbox() {
     });
   };
 
+  const handleRenameChat = (chatId: string, newTitle: string) => {
+    renameChatSession(chatId, newTitle);
+    toast({
+      title: "Đã đổi tên cuộc trò chuyện",
+      description: `Đã đổi tên thành "${newTitle}".`,
+    });
+  };
+
   return (
     <div className="flex h-screen bg-background overflow-hidden">
       {/* Sidebar - Hidden on mobile, can be enhanced with a toggle later */}
@@ -175,6 +184,7 @@ export function Chatbox() {
           onNewChat={handleNewChat}
           onSelectChat={handleSelectChat}
           onDeleteChat={handleDeleteChat}
+          onRenameChat={handleRenameChat}
           onClearAllChats={handleClearAllChats}
         />
       </div>

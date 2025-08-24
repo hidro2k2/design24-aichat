@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Plus, Trash2, MessageSquare, Clock } from 'lucide-react';
+import { Plus, Trash2, MessageSquare, Clock, Edit2, Check, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   AlertDialog,
@@ -29,6 +30,7 @@ interface ChatSidebarProps {
   onNewChat: () => void;
   onSelectChat: (chatId: string) => void;
   onDeleteChat: (chatId: string) => void;
+  onRenameChat: (chatId: string, newTitle: string) => void;
   onClearAllChats: () => void;
 }
 
@@ -38,9 +40,12 @@ export function ChatSidebar({
   onNewChat,
   onSelectChat,
   onDeleteChat,
+  onRenameChat,
   onClearAllChats,
 }: ChatSidebarProps) {
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingTitle, setEditingTitle] = useState('');
 
   const sortedSessions = Object.values(chatSessions).sort(
     (a, b) => b.timestamp - a.timestamp
@@ -63,6 +68,24 @@ export function ChatSidebar({
   const truncateText = (text: string, maxLength: number) => {
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + '...';
+  };
+
+  const handleStartEdit = (session: ChatSession) => {
+    setEditingId(session.id);
+    setEditingTitle(session.title);
+  };
+
+  const handleSaveEdit = () => {
+    if (editingId && editingTitle.trim()) {
+      onRenameChat(editingId, editingTitle.trim());
+    }
+    setEditingId(null);
+    setEditingTitle('');
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditingTitle('');
   };
 
   return (
@@ -116,9 +139,40 @@ export function ChatSidebar({
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-sm text-sidebar-foreground truncate">
-                        {truncateText(session.title, 30)}
-                      </h3>
+                      {editingId === session.id ? (
+                        <div className="flex items-center gap-1 mb-2">
+                          <Input
+                            value={editingTitle}
+                            onChange={(e) => setEditingTitle(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') handleSaveEdit();
+                              if (e.key === 'Escape') handleCancelEdit();
+                            }}
+                            className="text-sm h-6 px-2"
+                            autoFocus
+                          />
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="w-6 h-6 p-0 text-green-600"
+                            onClick={handleSaveEdit}
+                          >
+                            <Check className="w-3 h-3" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="w-6 h-6 p-0 text-red-600"
+                            onClick={handleCancelEdit}
+                          >
+                            <X className="w-3 h-3" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <h3 className="font-medium text-sm text-sidebar-foreground truncate group-hover:pr-8">
+                          {truncateText(session.title, 30)}
+                        </h3>
+                      )}
                       <p className="text-xs text-muted-foreground mt-1 truncate">
                         {truncateText(session.lastMessage, 40)}
                       </p>
@@ -130,41 +184,56 @@ export function ChatSidebar({
                       </div>
                     </div>
                     
-                    <AlertDialog>
-                      <AlertDialogTrigger asChild>
+                    {editingId !== session.id && (
+                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="opacity-0 group-hover:opacity-100 transition-opacity w-8 h-8 p-0 text-muted-foreground hover:text-destructive"
+                          className="w-8 h-8 p-0 text-muted-foreground hover:text-primary"
                           onClick={(e) => {
                             e.stopPropagation();
-                            setDeleteConfirmId(session.id);
+                            handleStartEdit(session);
                           }}
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Edit2 className="w-4 h-4" />
                         </Button>
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle>Xóa cuộc trò chuyện</AlertDialogTitle>
-                          <AlertDialogDescription>
-                            Bạn có chắc chắn muốn xóa cuộc trò chuyện này? Hành động này không thể hoàn tác.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>Hủy</AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={() => {
-                              onDeleteChat(session.id);
-                              setDeleteConfirmId(null);
-                            }}
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                          >
-                            Xóa
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="w-8 h-8 p-0 text-muted-foreground hover:text-destructive"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setDeleteConfirmId(session.id);
+                              }}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Xóa cuộc trò chuyện</AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Bạn có chắc chắn muốn xóa cuộc trò chuyện này? Hành động này không thể hoàn tác.
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Hủy</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => {
+                                  onDeleteChat(session.id);
+                                  setDeleteConfirmId(null);
+                                }}
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                              >
+                                Xóa
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
