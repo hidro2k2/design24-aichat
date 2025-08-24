@@ -18,6 +18,59 @@ interface ChatMessage {
 
 // Course database for context
 const COURSE_DATABASE = {
+  "00-about-design24": {
+    "id": "00-about-design24",
+    "title": "Thông tin chung về Design24",
+    "version": "1.0.0",
+    "last_updated": "2025-08-24",
+    "description": "Tổng quan về Design24 — năng lực, giá trị cốt lõi, quy trình và dịch vụ.",
+    "skills": ["Thiết kế thương hiệu", "TVC/Video", "Web/App Design", "Digital Marketing", "Copywriting"],
+    "tools": ["Design Studio", "Video Production", "Web Development", "Marketing Tools"],
+    "tags": ["Design24", "about", "dịch vụ", "quy trình", "thương hiệu"],
+    "knowledge": {
+      "company_overview": "Design24 là doanh nghiệp trẻ, năng động, chuyên về thiết kế thương hiệu, TVC/Video, web/app, đồ họa, chụp ảnh, in ấn, copywriting, digital marketing.",
+      "values": ["sáng tạo", "chuyên nghiệp", "uy tín", "hiệu quả", "giá hợp lý", "đúng tiến độ", "lợi ích khách hàng"],
+      "experience": "Hơn 5 năm kinh nghiệm, đã đồng hành với hơn 5.000 doanh nghiệp.",
+      "core_services": [
+        "Thiết kế thương hiệu (logo, nhận diện)",
+        "Video Marketing / TVC",
+        "Web & App Design",
+        "Graphic Design & Digital Marketing",
+        "Quay phim – Chụp ảnh",
+        "In ấn",
+        "Copywriting"
+      ],
+      "process_7_steps": [
+        "Khám phá & ký kết",
+        "Phân tích nhu cầu & mục tiêu",
+        "Nghiên cứu thị trường & đối thủ",
+        "Báo giá",
+        "Lên phương án – Kế hoạch",
+        "Thực thi & giám sát",
+        "Báo cáo – Tổng kết"
+      ],
+      "locations": [
+        "Hồ Chí Minh (302A Nguyễn Thượng Hiền, P.5, Q.Phú Nhuận)",
+        "Cần Thơ 1 (661F/29, KV Bình Yên A, P. Long Hòa, Q. Bình Thủy)",
+        "Cần Thơ 2 (Số 19, đường 13, KDC 91B, P. An Khánh, Q. Ninh Kiều)"
+      ],
+      "contacts": {
+        "phone": ["0704.888.009", "0784.888.009"],
+        "email": "Design24.vn@gmail.com",
+        "tax_id": "1801676144"
+      }
+    },
+    "rulebook": {
+      "answer_policy": {
+        "priority": ["Trả lời ngắn gọn, rõ ràng", "Khi user hỏi về Design24, tập trung vào dịch vụ và quy trình"],
+        "fallback": "Nếu user hỏi về điều chưa rõ, hỏi thêm cụ thể về dịch vụ hoặc vị trí cần biết."
+      }
+    },
+    "metadata": {
+      "source": "Trang chủ https://design24.vn/",
+      "owner": "Design24 Internal Database"
+    }
+  },
   "01-content-creation": {
     "id": "01-content-creation",
     "title": "Sáng tạo nội dung",
