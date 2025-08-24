@@ -119,9 +119,9 @@ const COURSE_DATABASE = {
       "match_threshold": 0.72
     },
     "metadata": {
-      "owner": "24DESIGN Academy",
-      "copyright": "©2025 24DESIGN",
-      "source_notes": "Dữ liệu nội bộ 24DESIGN + cập nhật thị trường"
+      "owner": "DESIGN24 Academy",
+      "copyright": "©2025 DESIGN24",
+      "source_notes": "Dữ liệu nội bộ DESIGN24 + cập nhật thị trường"
     }
   },
   "photography": {
@@ -190,7 +190,7 @@ class GeminiService {
   }
 
   private getSystemPrompt(): string {
-    return `You are an AI assistant for 24DESIGN's "AI Skills for Tour Guides" course. You help tour guides learn and apply AI technologies in their work.
+    return `You are an AI assistant for DESIGN24's "AI Skills for Tour Guides" course. You help tour guides learn and apply AI technologies in their work.
 
 Course Information:
 ${Object.entries(COURSE_DATABASE).map(([key, course]) => 

@@ -15,7 +15,7 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-soft hover:bg-secondary/80 hover:shadow-strong",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        // Custom variants for our 24Design chatbox
+        // Custom variants for our DESIGN24 chatbox
         primary: "bg-chat-gradient text-primary-foreground shadow-soft hover:shadow-strong hover:scale-105 font-medium",
         hero: "bg-chat-gradient text-primary-foreground shadow-strong hover:shadow-strong hover:scale-110 font-semibold text-base px-6 py-3",
       },

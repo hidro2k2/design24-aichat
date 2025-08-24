@@ -3,11 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 24Design Chatbox Design System - Dark Blue Professional Theme */
+/* DESIGN24 Chatbox Design System - Dark Blue Professional Theme */
 
 @layer base {
   :root {
-    /* 24Design Brand Color Palette - Dark Blue Theme */
+    /* DESIGN24 Brand Color Palette - Dark Blue Theme */
     --color-primary-50: 225 100% 96%;
     --color-primary-100: 225 100% 92%;
     --color-primary-200: 227 84% 81%;

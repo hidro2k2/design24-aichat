@@ -73,12 +73,12 @@ export function ChatSidebar({
           <div className="w-10 h-10 bg-chat-gradient rounded-lg flex items-center justify-center p-2">
             <img 
               src={logoDesign24} 
-              alt="24DESIGN Logo" 
+              alt="DESIGN24 Logo" 
               className="w-full h-full object-contain filter brightness-0 invert"
             />
           </div>
           <div>
-            <h1 className="font-bold text-lg gradient-text">24DESIGN</h1>
+            <h1 className="font-bold text-lg gradient-text">DESIGN24</h1>
             <p className="text-xs text-muted-foreground">Trợ lý AI</p>
           </div>
         </div>

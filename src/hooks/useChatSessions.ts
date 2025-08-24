@@ -16,7 +16,7 @@ export interface ChatSession {
   messages: ChatMessage[];
 }
 
-const STORAGE_KEY = '24design-chat-sessions';
+const STORAGE_KEY = 'design24-chat-sessions';
 const MAX_MESSAGES_PER_CHAT = 200;
 
 export function useChatSessions() {
