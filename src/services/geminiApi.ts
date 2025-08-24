@@ -90,7 +90,7 @@ class GeminiService {
   }
 
   private getSystemPrompt(): string {
-    return `You are an AI assistant for DESIGN24's "AI Skills for Tour Guides" course. You help tour guides learn and apply AI technologies in their work.
+    return `You are an AI assistant for 24DESIGN's "AI Skills for Tour Guides" course. You help tour guides learn and apply AI technologies in their work.
 
 Course Information:
 ${Object.entries(COURSE_DATABASE).map(([key, course]) => 
