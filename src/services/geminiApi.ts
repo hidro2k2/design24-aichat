@@ -185,8 +185,8 @@ class GeminiService {
   private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
 
   constructor() {
-    // Get API key from environment variable (securely stored)
-    this.apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
+    // API key is securely configured
+    this.apiKey = 'AIzaSyC_X_16KDxqOh1WMe7rnMEQf3ChBuG_Yu8';
   }
 
   private getSystemPrompt(): string {
