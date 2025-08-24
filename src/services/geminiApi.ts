@@ -18,11 +18,111 @@ interface ChatMessage {
 
 // Course database for context
 const COURSE_DATABASE = {
-  "digital_marketing": {
-    "title": "Digital Marketing for Tourism",
-    "description": "Master social media, content creation, and online promotion strategies for tourism businesses",
-    "skills": ["Social Media Management", "Content Creation", "SEO Basics", "Online Advertising"],
-    "tools": ["Facebook", "Instagram", "TikTok", "Google Ads", "Canva"]
+  "01-content-creation": {
+    "id": "01-content-creation",
+    "title": "Sáng tạo nội dung",
+    "version": "1.0.0",
+    "last_updated": "2025-08-24",
+    "description": "Tạo nội dung hấp dẫn, từ bài viết đến blog du lịch, tối ưu hóa theo xu hướng thị trường",
+    "skills": [
+      "Viết bài viết du lịch hấp dẫn",
+      "Tối ưu SEO cho nội dung",
+      "Tạo blog du lịch chuyên nghiệp",
+      "Phân tích xu hướng thị trường",
+      "Content marketing cho du lịch"
+    ],
+    "tools": ["WordPress", "SEO tools", "Google Trends", "Social Media"],
+    "rulebook": {
+      "scope": [
+        "Viết blog, bài mạng xã hội, caption video du lịch",
+        "Xây dựng outline SEO cho bài viết du lịch",
+        "Tạo content marketing du lịch theo trends"
+      ],
+      "style_tone": {
+        "tone": "Thân thiện, truyền cảm hứng, chuyên nghiệp",
+        "style": "Ngắn gọn, dễ đọc, ưu tiên danh sách/bước, có CTA",
+        "formatting": ["Tiêu đề mạnh", "Bullet points", "Checklist", "H1/H2/H3 rõ ràng"]
+      },
+      "dos": [
+        "Mở đầu bài viết bằng hook ấn tượng",
+        "Chèn CTA cụ thể (Inbox, Đặt tour, Nhận ưu đãi)",
+        "Tận dụng từ khóa SEO tự nhiên",
+        "Sử dụng hình ảnh minh họa liên quan"
+      ],
+      "donts": [
+        "Không viết chung chung, sáo rỗng",
+        "Không hứa hẹn sai sự thật",
+        "Không bỏ CTA trong nội dung marketing"
+      ],
+      "safety": [
+        "Không công bố thông tin cá nhân khách hàng",
+        "Tránh nội dung nhạy cảm chính trị/tôn giáo",
+        "Luôn kiểm tra bản quyền ảnh/nhạc"
+      ],
+      "answer_policy": {
+        "priority": [
+          "Trả lời đúng ngữ cảnh du lịch",
+          "Ưu tiên ví dụ thực tế tại Việt Nam",
+          "Luôn gợi ý CTA và KPI đo lường"
+        ],
+        "fallback": "Nếu brief thiếu thông tin → hỏi lại mục tiêu, đối tượng, kênh, độ dài"
+      }
+    },
+    "knowledge": {
+      "key_concepts": [
+        "Persona du lịch",
+        "USP tour",
+        "Content-market fit",
+        "AIDA, PAS, FAB frameworks"
+      ],
+      "best_practices": [
+        "Hook mạnh trong 3s đầu",
+        "Dùng số liệu, địa danh cụ thể",
+        "Storytelling theo hành trình",
+        "Chèn hashtag địa phương + niche"
+      ]
+    },
+    "workflows": [
+      {
+        "name": "Content Workflow Du Lịch",
+        "steps": [
+          "Nhận brief → xác định persona + mục tiêu",
+          "Research từ khoá + xu hướng",
+          "Tạo outline (SEO/định dạng bài viết)",
+          "Viết bản nháp",
+          "Biên tập + thêm CTA",
+          "Đăng và đo lường KPI"
+        ],
+        "inputs": ["brief", "USP", "persona"],
+        "outputs": ["outline", "bản nháp", "post hoàn chỉnh"],
+        "kpi": ["CTR", "Time on page", "Leads"]
+      }
+    ],
+    "prompt_templates": {
+      "ideation": "Đề xuất 10 ý tưởng nội dung về [điểm đến] cho [persona], mục tiêu [mục tiêu]. Output: Tiêu đề | Hook | CTA",
+      "outline": "Tạo dàn ý SEO (H1/H2/H3) cho bài blog về [điểm đến], kèm keyword và CTA",
+      "post": "Viết bài Facebook 150 từ cho [tour/sự kiện], tone [thân thiện], chèn 2 CTA và 5 hashtag"
+    },
+    "examples": [
+      {
+        "name": "Post Facebook – Tour Miền Tây",
+        "input": {"persona": "Sinh viên 20–25", "mục_tiêu": "tăng inbox"},
+        "output_brief": "Caption ngắn gọn, highlight chợ nổi, CTA 'Inbox nhận lịch trình miễn phí'."
+      }
+    ],
+    "faqs": [
+      {"q": "Bao lâu thấy hiệu quả content?", "a": "Tối thiểu 2–4 tuần cho organic nếu đăng đều đặn."},
+      {"q": "Có cần SEO không?", "a": "Có, SEO giúp nội dung bền vững, tăng traffic dài hạn."}
+    ],
+    "retrieval": {
+      "keywords": ["content", "SEO du lịch", "blog", "caption", "tour marketing"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "24DESIGN Academy",
+      "copyright": "©2025 24DESIGN",
+      "source_notes": "Dữ liệu nội bộ 24DESIGN + cập nhật thị trường"
+    }
   },
   "photography": {
     "title": "Photography & Visual Storytelling",
