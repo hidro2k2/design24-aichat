@@ -278,12 +278,11 @@ class GeminiService {
   private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
 
   constructor() {
-    // Read API key from environment variables (Vite)
-    this.apiKey = (import.meta as any)?.env?.VITE_GEMINI_API_KEY || "";
+    // Try to read API key from environment variables first, then localStorage
+    this.apiKey = (import.meta as any)?.env?.VITE_GEMINI_API_KEY || 
+                  localStorage.getItem('gemini_api_key') || "";
     
-    if (!this.apiKey) {
-      throw new Error('Gemini API key not configured. Please set VITE_GEMINI_API_KEY in your environment.');
-    }
+    // Don't throw error in constructor - let the app handle it gracefully
   }
 
   private getSystemPrompt(): string {
@@ -317,7 +316,7 @@ Guidelines:
 
   async sendMessage(messages: ChatMessage[], userMessage: string): Promise<string> {
     if (!this.apiKey) {
-      throw new Error('Gemini API key not configured. Please contact support.');
+      throw new Error('API_KEY_NOT_CONFIGURED');
     }
 
     try {
@@ -422,6 +421,16 @@ Nếu câu hỏi là về giới thiệu/thông tin cơ sở/điện thoại/đ�
   // Method to check if API key is configured
   isConfigured(): boolean {
     return this.apiKey !== null && this.apiKey.trim() !== '';
+  }
+
+  // Method to set API key and save to localStorage
+  setApiKey(apiKey: string): void {
+    this.apiKey = apiKey;
+    if (apiKey.trim()) {
+      localStorage.setItem('gemini_api_key', apiKey);
+    } else {
+      localStorage.removeItem('gemini_api_key');
+    }
   }
 }
 

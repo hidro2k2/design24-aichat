@@ -3,6 +3,7 @@ import { AlertTriangle, Wifi, WifiOff, Plus } from 'lucide-react';
 import { ChatSidebar } from './ChatSidebar';
 import { ChatMessage } from './ChatMessage';
 import { ChatInput } from './ChatInput';
+import { ApiKeySetup } from './ApiKeySetup';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -19,6 +20,8 @@ interface TypingMessage {
 }
 
 export function Chatbox() {
+  const [isApiKeyConfigured, setIsApiKeyConfigured] = useState(false);
+  
   const {
     chatSessions,
     currentChatId,
@@ -36,6 +39,11 @@ export function Chatbox() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  // Check if API key is configured on mount
+  useEffect(() => {
+    setIsApiKeyConfigured(geminiService.isConfigured());
+  }, []);
 
   // Monitor online status
   useEffect(() => {
@@ -122,6 +130,19 @@ export function Chatbox() {
 
     } catch (error) {
       console.error('Error sending message:', error);
+      
+      // Check if it's an API key error
+      if (error instanceof Error && error.message === 'API_KEY_NOT_CONFIGURED') {
+        setIsApiKeyConfigured(false);
+        addMessage('Vui lòng làm mới trang và nhập khóa API Gemini để tiếp tục.', false);
+        toast({
+          title: "Cần API Key",
+          description: "Vui lòng làm mới trang và nhập khóa API của bạn.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
       const errorMessage = error instanceof Error 
         ? error.message 
         : 'Xin lỗi, tôi gặp lỗi. Vui lòng thử lại.';
@@ -173,6 +194,17 @@ export function Chatbox() {
       description: `Đã đổi tên thành "${newTitle}".`,
     });
   };
+
+  const handleApiKeySet = () => {
+    setIsApiKeyConfigured(true);
+    // Create a new chat automatically after API key is set
+    createNewChat();
+  };
+
+  // Show API key setup screen if not configured
+  if (!isApiKeyConfigured) {
+    return <ApiKeySetup onApiKeySet={handleApiKeySet} />;
+  }
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
