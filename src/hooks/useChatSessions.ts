@@ -14,6 +14,7 @@ export interface ChatSession {
   timestamp: number;
   messageCount: number;
   messages: ChatMessage[];
+  isCustomTitle?: boolean; // Track if user has manually renamed the chat
 }
 
 const STORAGE_KEY = 'design24-chat-sessions';
@@ -62,6 +63,7 @@ export function useChatSessions() {
       timestamp: Date.now(),
       messageCount: 0,
       messages: [],
+      isCustomTitle: false, // Initially not custom title
     };
 
     const updatedSessions = { ...chatSessions, [newChatId]: newSession };
@@ -94,9 +96,9 @@ export function useChatSessions() {
         messages.splice(0, messages.length - MAX_MESSAGES_PER_CHAT);
       }
 
-      // Generate title from first user message if needed
+      // Generate title from first user message ONLY if title hasn't been manually changed
       let title = session.title;
-      if (title === 'New Chat' && isUser && message.trim()) {
+      if (title === 'New Chat' && isUser && message.trim() && !session.isCustomTitle) {
         title = message.length > 50 ? message.substring(0, 47) + '...' : message;
       }
 
@@ -155,6 +157,7 @@ export function useChatSessions() {
       const updatedSession: ChatSession = {
         ...session,
         title: newTitle.trim() || 'Untitled Chat',
+        isCustomTitle: true, // Mark as custom title when user renames
       };
 
       const updatedSessions = { ...prev, [chatId]: updatedSession };
