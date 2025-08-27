@@ -14,7 +14,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import logoDesign24 from '@/assets/design24-logo-updated.png';
+import logoDesign24 from '@/assets/design24-logo-fixed.png';
 
 interface ChatSession {
   id: string;
@@ -93,11 +93,11 @@ export function ChatSidebar({
       {/* Header */}
       <div className="p-4 border-b border-sidebar-border">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-chat-gradient rounded-lg flex items-center justify-center p-2">
+          <div className="w-10 h-10 bg-chat-gradient rounded-lg flex items-center justify-center p-1">
             <img 
               src={logoDesign24} 
               alt="DESIGN24 Logo" 
-              className="w-full h-full object-contain filter brightness-0 invert"
+              className="w-full h-full object-contain"
             />
           </div>
           <div>
