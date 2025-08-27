@@ -179,9 +179,21 @@ const COURSE_DATABASE = {
   },
   "photography": {
     "title": "Photography & Visual Storytelling",
-    "description": "Learn professional photography techniques and visual storytelling for tourism content",
+    "description": "Kỹ thuật chụp ảnh đẹp với smartphone, tự động điều chỉnh ánh sáng, màu sắc và cải thiện chất lượng ảnh",
     "skills": ["Composition", "Lighting", "Photo Editing", "Storytelling"],
-    "tools": ["DSLR Camera", "Smartphone Photography", "Lightroom", "Photoshop"]
+    "tools": ["DSLR Camera", "Smartphone Photography", "Lightroom", "Photoshop"],
+    "ten_skills": [
+      "1. Sáng tạo nội dung: Tạo ra nội dung hấp dẫn, từ bài viết đến các blog du lịch, tối ưu hóa theo xu hướng thị trường",
+      "2. Chụp ảnh: Kỹ thuật chụp ảnh đẹp với smartphone, tự động điều chỉnh ánh sáng, màu sắc và cải thiện chất lượng ảnh",
+      "3. Xử lý ảnh: Chỉnh sửa ảnh, cải thiện độ sắc nét, điều chỉnh màu sắc và loại bỏ phông nền không cần thiết",
+      "4. Thiết kế quảng cáo: Thiết kế quảng cáo du lịch bắt mắt, phù hợp với xu hướng và nhu cầu khách hàng, có thể sử dụng Canva để tạo mẫu quảng cáo dễ dàng",
+      "5. Quay video: Quay video chất lượng cao bằng smartphone, tự động điều chỉnh ánh sáng và góc quay để tạo thước phim đẹp mắt",
+      "6. Dựng video: Dựng video nhanh chóng và dễ dàng bằng Capcut, tự động chọn cảnh quay, ghép nối và tạo video hoàn chỉnh",
+      "7. Âm thanh: Cải thiện âm thanh trong video, loại bỏ tạp âm và thêm hiệu ứng âm thanh sống động",
+      "8. Ký xảo: Tạo ra hiệu ứng hình ảnh và 3D độc đáo cho video du lịch, tăng tính hấp dẫn",
+      "9. Voice: Tạo giọng nói tự nhiên cho các phần lời thoại trong video hoặc bài giới thiệu",
+      "10. Sáng tạo âm nhạc: Sáng tác nhạc nền hoặc giai điệu phù hợp với các video du lịch, tạo không khí độc đáo"
+    ]
   },
   "ai_tools": {
     "title": "AI Tools for Content Creation",
@@ -257,6 +269,16 @@ function buildContextFromDB(query: string): string {
       `Best practices: ${cc.knowledge.best_practices.join("; ")}`,
       `Frameworks: AIDA, PAS, FAB`,
       `Templates: ideation/outline/post`
+    ].join("\n"));
+  }
+
+  // ==== AI Skills for Tour Guides (10 kỹ năng) ====
+  const needAISkills = /(ai|kỹ năng|skill|photography|chụp ảnh|video|quay|dựng|âm thanh|voice|ký xảo|thiết kế|quảng cáo|âm nhạc|hướng dẫn viên|tour guide)/i.test(q);
+  const aiSkills = COURSE_DATABASE["photography"] as any;
+  if (aiSkills?.ten_skills && needAISkills) {
+    blocks.push([
+      "10 KỸ NĂNG AI CHO HƯỚNG DẪN VIÊN DU LỊCH",
+      aiSkills.ten_skills.join("\n")
     ].join("\n"));
   }
 
