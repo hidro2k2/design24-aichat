@@ -14,7 +14,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import logoDesign24 from '@/assets/design24-logo-fixed.png';
+import logoDesign24 from '@/assets/design24-logo-original.png';
 
 interface ChatSession {
   id: string;
