@@ -168,12 +168,12 @@ export function ChatSidebar({
                     </div>
                   ) : (
                     <div className="flex items-start justify-between gap-2">
-                      <div className="flex-1 min-w-0">
+                      <div className="flex-1 min-w-0 pr-2">
                         <h3 className="font-medium text-sm text-sidebar-foreground truncate">
-                          {truncateText(session.title, 30)}
+                          {truncateText(session.title, 25)}
                         </h3>
                         <p className="text-xs text-muted-foreground mt-1 truncate">
-                          {truncateText(session.lastMessage, 40)}
+                          {truncateText(session.lastMessage, 35)}
                         </p>
                         <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
                           <Clock className="w-3 h-3" />
