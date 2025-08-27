@@ -16,7 +16,7 @@ interface ChatMessage {
   isUser: boolean;
 }
 
-// Course database for context
+// Course database - 10 Kỹ năng AI cho Hướng dẫn viên Du lịch
 const COURSE_DATABASE = {
   "00-about-design24": {
     "id": "00-about-design24",
@@ -84,7 +84,7 @@ const COURSE_DATABASE = {
       "Phân tích xu hướng thị trường",
       "Content marketing cho du lịch"
     ],
-    "tools": ["WordPress", "SEO tools", "Google Trends", "Social Media"],
+    "tools": ["ChatGPT", "Canva", "Notion", "Google Trends", "Social Media Scheduler"],
     "rulebook": {
       "scope": [
         "Viết blog, bài mạng xã hội, caption video du lịch",
@@ -96,22 +96,6 @@ const COURSE_DATABASE = {
         "style": "Ngắn gọn, dễ đọc, ưu tiên danh sách/bước, có CTA",
         "formatting": ["Tiêu đề mạnh", "Bullet points", "Checklist", "H1/H2/H3 rõ ràng"]
       },
-      "dos": [
-        "Mở đầu bài viết bằng hook ấn tượng",
-        "Chèn CTA cụ thể (Inbox, Đặt tour, Nhận ưu đãi)",
-        "Tận dụng từ khóa SEO tự nhiên",
-        "Sử dụng hình ảnh minh họa liên quan"
-      ],
-      "donts": [
-        "Không viết chung chung, sáo rỗng",
-        "Không hứa hẹn sai sự thật",
-        "Không bỏ CTA trong nội dung marketing"
-      ],
-      "safety": [
-        "Không công bố thông tin cá nhân khách hàng",
-        "Tránh nội dung nhạy cảm chính trị/tôn giáo",
-        "Luôn kiểm tra bản quyền ảnh/nhạc"
-      ],
       "answer_policy": {
         "priority": [
           "Trả lời đúng ngữ cảnh du lịch",
@@ -122,120 +106,300 @@ const COURSE_DATABASE = {
       }
     },
     "knowledge": {
-      "key_concepts": [
-        "Persona du lịch",
-        "USP tour",
-        "Content-market fit",
-        "AIDA, PAS, FAB frameworks"
-      ],
-      "best_practices": [
-        "Hook mạnh trong 3s đầu",
-        "Dùng số liệu, địa danh cụ thể",
-        "Storytelling theo hành trình",
-        "Chèn hashtag địa phương + niche"
-      ]
+      "key_concepts": ["Persona du lịch", "USP tour", "Content-market fit", "AIDA, PAS, FAB frameworks"],
+      "best_practices": ["Hook mạnh trong 3s đầu", "Dùng số liệu, địa danh cụ thể", "Storytelling theo hành trình"]
     },
-    "workflows": [
-      {
-        "name": "Content Workflow Du Lịch",
-        "steps": [
-          "Nhận brief → xác định persona + mục tiêu",
-          "Research từ khoá + xu hướng",
-          "Tạo outline (SEO/định dạng bài viết)",
-          "Viết bản nháp",
-          "Biên tập + thêm CTA",
-          "Đăng và đo lường KPI"
-        ],
-        "inputs": ["brief", "USP", "persona"],
-        "outputs": ["outline", "bản nháp", "post hoàn chỉnh"],
-        "kpi": ["CTR", "Time on page", "Leads"]
-      }
-    ],
-    "prompt_templates": {
-      "ideation": "Đề xuất 10 ý tưởng nội dung về [điểm đến] cho [persona], mục tiêu [mục tiêu]. Output: Tiêu đề | Hook | CTA",
-      "outline": "Tạo dàn ý SEO (H1/H2/H3) cho bài blog về [điểm đến], kèm keyword và CTA",
-      "post": "Viết bài Facebook 150 từ cho [tour/sự kiện], tone [thân thiện], chèn 2 CTA và 5 hashtag"
-    },
-    "examples": [
-      {
-        "name": "Post Facebook – Tour Miền Tây",
-        "input": {"persona": "Sinh viên 20–25", "mục_tiêu": "tăng inbox"},
-        "output_brief": "Caption ngắn gọn, highlight chợ nổi, CTA 'Inbox nhận lịch trình miễn phí'."
-      }
-    ],
     "faqs": [
       {"q": "Bao lâu thấy hiệu quả content?", "a": "Tối thiểu 2–4 tuần cho organic nếu đăng đều đặn."},
       {"q": "Có cần SEO không?", "a": "Có, SEO giúp nội dung bền vững, tăng traffic dài hạn."}
     ],
     "retrieval": {
-      "keywords": ["content", "SEO du lịch", "blog", "caption", "tour marketing"],
+      "keywords": ["content", "nội dung", "blog", "caption", "tour marketing"],
       "match_threshold": 0.72
     },
     "metadata": {
       "owner": "DESIGN24 Academy",
-      "copyright": "©2025 DESIGN24",
-      "source_notes": "Dữ liệu nội bộ DESIGN24 + cập nhật thị trường"
+      "copyright": "©2025 DESIGN24"
     }
   },
-  "photography": {
-    "title": "Photography & Visual Storytelling",
+  "02-photography": {
+    "id": "02-photography",
+    "title": "Chụp ảnh",
+    "version": "1.0.0",
+    "last_updated": "2025-08-27",
     "description": "Kỹ thuật chụp ảnh đẹp với smartphone, tự động điều chỉnh ánh sáng, màu sắc và cải thiện chất lượng ảnh",
-    "skills": ["Composition", "Lighting", "Photo Editing", "Storytelling"],
-    "tools": ["DSLR Camera", "Smartphone Photography", "Lightroom", "Photoshop"],
-    "ten_skills": [
-      "1. Sáng tạo nội dung: Tạo ra nội dung hấp dẫn, từ bài viết đến các blog du lịch, tối ưu hóa theo xu hướng thị trường",
-      "2. Chụp ảnh: Kỹ thuật chụp ảnh đẹp với smartphone, tự động điều chỉnh ánh sáng, màu sắc và cải thiện chất lượng ảnh",
-      "3. Xử lý ảnh: Chỉnh sửa ảnh, cải thiện độ sắc nét, điều chỉnh màu sắc và loại bỏ phông nền không cần thiết",
-      "4. Thiết kế quảng cáo: Thiết kế quảng cáo du lịch bắt mắt, phù hợp với xu hướng và nhu cầu khách hàng, có thể sử dụng Canva để tạo mẫu quảng cáo dễ dàng",
-      "5. Quay video: Quay video chất lượng cao bằng smartphone, tự động điều chỉnh ánh sáng và góc quay để tạo thước phim đẹp mắt",
-      "6. Dựng video: Dựng video nhanh chóng và dễ dàng bằng Capcut, tự động chọn cảnh quay, ghép nối và tạo video hoàn chỉnh",
-      "7. Âm thanh: Cải thiện âm thanh trong video, loại bỏ tạp âm và thêm hiệu ứng âm thanh sống động",
-      "8. Ký xảo: Tạo ra hiệu ứng hình ảnh và 3D độc đáo cho video du lịch, tăng tính hấp dẫn",
-      "9. Voice: Tạo giọng nói tự nhiên cho các phần lời thoại trong video hoặc bài giới thiệu",
-      "10. Sáng tạo âm nhạc: Sáng tác nhạc nền hoặc giai điệu phù hợp với các video du lịch, tạo không khí độc đáo"
-    ]
+    "skills": [
+      "Chụp ảnh với smartphone",
+      "Điều chỉnh ánh sáng tự nhiên",
+      "Composition và góc chụp",
+      "Chụp ảnh du lịch chuyên nghiệp",
+      "Photography storytelling"
+    ],
+    "tools": ["Smartphone Camera", "Camera FV-5", "VSCO", "Open Camera", "Lightroom Mobile"],
+    "knowledge": {
+      "key_concepts": ["Rule of thirds", "Golden hour", "Leading lines", "Depth of field"],
+      "best_practices": ["Chụp nhiều góc độ", "Tận dụng ánh sáng tự nhiên", "Focus vào chi tiết", "Kể chuyện qua ảnh"]
+    },
+    "faqs": [
+      {"q": "Smartphone có chụp được ảnh đẹp không?", "a": "Có, với kỹ thuật đúng smartphone có thể tạo ra ảnh chuyên nghiệp."},
+      {"q": "Thời điểm nào chụp ảnh đẹp nhất?", "a": "Golden hour - 1 tiếng sau bình minh và trước hoàng hôn."}
+    ],
+    "retrieval": {
+      "keywords": ["chụp ảnh", "photography", "smartphone", "ánh sáng", "composition"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "copyright": "©2025 DESIGN24"
+    }
   },
-  "ai_tools": {
-    "title": "AI Tools for Content Creation",
-    "description": "Utilize AI-powered tools to enhance content creation and customer service",
-    "skills": ["AI Writing", "Image Generation", "Voice Synthesis", "Chatbot Development"],
-    "tools": ["ChatGPT", "Midjourney", "Canva AI", "Google Bard"]
+  "03-photo-editing": {
+    "id": "03-photo-editing",
+    "title": "Xử lý ảnh",
+    "version": "1.0.0",
+    "last_updated": "2025-08-27",
+    "description": "Chỉnh sửa ảnh, cải thiện độ sắc nét, điều chỉnh màu sắc và loại bỏ phông nền không cần thiết",
+    "skills": [
+      "Chỉnh sửa ảnh cơ bản",
+      "Điều chỉnh màu sắc và độ sáng",
+      "Loại bỏ background",
+      "Tăng độ sắc nét",
+      "Retouching và enhancement"
+    ],
+    "tools": ["Photoshop", "Lightroom", "Canva", "Remove.bg", "GIMP", "Snapseed"],
+    "knowledge": {
+      "key_concepts": ["Color grading", "Exposure adjustment", "Background removal", "Sharpening"],
+      "best_practices": ["Giữ tự nhiên", "Không over-edit", "Consistent style", "Export quality cao"]
+    },
+    "faqs": [
+      {"q": "App nào tốt nhất để edit ảnh trên điện thoại?", "a": "Lightroom Mobile, VSCO, Snapseed đều rất tốt và miễn phí."},
+      {"q": "Cách loại bỏ background nhanh nhất?", "a": "Dùng Remove.bg hoặc Canva Background Remover, AI sẽ tự động xử lý."}
+    ],
+    "retrieval": {
+      "keywords": ["xử lý ảnh", "edit ảnh", "photoshop", "lightroom", "background removal"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "copyright": "©2025 DESIGN24"
+    }
   },
-  "data_analysis": {
-    "title": "Data Analysis for Tourism",
-    "description": "Learn to collect, analyze, and interpret tourism data for better decision making",
-    "skills": ["Excel Analytics", "Google Analytics", "Data Visualization", "Trend Analysis"],
-    "tools": ["Excel", "Google Analytics", "Tableau", "Power BI"]
+  "04-ad-design": {
+    "id": "04-ad-design",
+    "title": "Thiết kế quảng cáo",
+    "version": "1.0.0",
+    "last_updated": "2025-08-27",
+    "description": "Thiết kế quảng cáo du lịch bắt mắt, phù hợp với xu hướng và nhu cầu khách hàng",
+    "skills": [
+      "Thiết kế banner quảng cáo",
+      "Social media graphics",
+      "Branding cho tour du lịch",
+      "Call-to-action design",
+      "Visual hierarchy"
+    ],
+    "tools": ["Canva", "Figma", "Adobe Illustrator", "Photoshop", "Freepik"],
+    "knowledge": {
+      "key_concepts": ["Visual hierarchy", "Color psychology", "Typography", "Brand consistency"],
+      "best_practices": ["Clear messaging", "Eye-catching visuals", "Mobile-friendly", "A/B test designs"]
+    },
+    "faqs": [
+      {"q": "Kích thước nào phù hợp cho Facebook ads?", "a": "1200x630px cho feed, 1080x1080px cho story, 1200x1200px cho carousel."},
+      {"q": "Màu sắc nào thu hút nhất trong quảng cáo du lịch?", "a": "Xanh da trời, xanh lá, cam sunset - tạo cảm giác tự do và phiêu lưu."}
+    ],
+    "retrieval": {
+      "keywords": ["thiết kế quảng cáo", "ad design", "banner", "graphics", "canva"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "copyright": "©2025 DESIGN24"
+    }
   },
-  "customer_service": {
-    "title": "Digital Customer Service Excellence",
-    "description": "Master online customer service and relationship management techniques",
-    "skills": ["Live Chat Management", "Email Marketing", "CRM Usage", "Customer Feedback"],
-    "tools": ["Zendesk", "WhatsApp Business", "Mailchimp", "HubSpot"]
+  "05-video-shooting": {
+    "id": "05-video-shooting",
+    "title": "Quay video",
+    "version": "1.0.0",
+    "last_updated": "2025-08-27",
+    "description": "Quay video chất lượng cao bằng smartphone, tự động điều chỉnh ánh sáng và góc quay",
+    "skills": [
+      "Quay video với smartphone",
+      "Stabilization và smooth shots",
+      "Lighting cho video",
+      "Camera movement techniques",
+      "B-roll và cutaway shots"
+    ],
+    "tools": ["Smartphone Camera", "Gimbal", "External microphone", "LED lights", "Tripod"],
+    "knowledge": {
+      "key_concepts": ["Frame rate", "Resolution", "Exposure", "Focus tracking"],
+      "best_practices": ["Quay ngang", "Stable shots", "Đa dạng góc quay", "Capture audio tốt"]
+    },
+    "faqs": [
+      {"q": "Quay video bằng điện thoại có ổn không?", "a": "Rất ổn! iPhone và Samsung flagship có thể quay 4K chất lượng chuyên nghiệp."},
+      {"q": "Cần thiết bị gì để quay video ổn định?", "a": "Gimbal hoặc tripod, microphone rời và đèn LED nhỏ."}
+    ],
+    "retrieval": {
+      "keywords": ["quay video", "video shooting", "smartphone video", "filming", "camera"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "copyright": "©2025 DESIGN24"
+    }
   },
-  "virtual_tours": {
-    "title": "Virtual & Augmented Reality Tours",
-    "description": "Create immersive virtual experiences for remote tourists",
-    "skills": ["360° Photography", "VR Content Creation", "AR Development", "3D Modeling"],
-    "tools": ["360 Camera", "Unity", "Blender", "Google Earth VR"]
+  "06-video-editing": {
+    "id": "06-video-editing",
+    "title": "Dựng video",
+    "version": "1.0.0",
+    "last_updated": "2025-08-27",
+    "description": "Dựng video nhanh chóng và dễ dàng bằng CapCut, tự động chọn cảnh quay, ghép nối",
+    "skills": [
+      "Video editing cơ bản",
+      "Transition và effects",
+      "Color grading cho video",
+      "Synchronize audio-video",
+      "Export optimization"
+    ],
+    "tools": ["CapCut", "DaVinci Resolve", "Adobe Premiere", "InShot", "Filmora"],
+    "knowledge": {
+      "key_concepts": ["Timeline editing", "Cuts và transitions", "Audio sync", "Color correction"],
+      "best_practices": ["Keep it engaging", "Music sync", "Clear storytelling", "Optimize for platform"]
+    },
+    "faqs": [
+      {"q": "CapCut có miễn phí không?", "a": "Có, CapCut hoàn toàn miễn phí với đầy đủ tính năng cơ bản."},
+      {"q": "Làm sao để video không bị mờ khi đăng lên mạng xã hội?", "a": "Export ở resolution gốc (1080p+) và dùng đúng aspect ratio cho từng platform."}
+    ],
+    "retrieval": {
+      "keywords": ["dựng video", "video editing", "capcut", "premiere", "editing"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "copyright": "©2025 DESIGN24"
+    }
   },
-  "language_tech": {
-    "title": "Language Technology & Translation",
-    "description": "Use AI-powered translation and language learning tools effectively",
-    "skills": ["Real-time Translation", "Language Learning", "Voice Recognition", "Cultural Adaptation"],
-    "tools": ["Google Translate", "DeepL", "Duolingo", "Speechify"]
+  "07-audio": {
+    "id": "07-audio",
+    "title": "Âm thanh",
+    "version": "1.0.0",
+    "last_updated": "2025-08-27",
+    "description": "Cải thiện âm thanh trong video, loại bỏ tạp âm và thêm hiệu ứng âm thanh sống động",
+    "skills": [
+      "Audio recording và cleanup",
+      "Noise reduction",
+      "Sound effects và music",
+      "Audio mixing",
+      "Voiceover recording"
+    ],
+    "tools": ["Audacity", "Adobe Audition", "GarageBand", "Reaper", "AI voice tools"],
+    "knowledge": {
+      "key_concepts": ["Audio levels", "EQ và compression", "Noise reduction", "Audio sync"],
+      "best_practices": ["Clear recording", "Consistent levels", "Copyright-free music", "Audio ducking"]
+    },
+    "faqs": [
+      {"q": "Làm sao loại bỏ tạp âm trong video?", "a": "Dùng Audacity (free) hoặc Adobe Audition, feature Noise Reduction."},
+      {"q": "Tìm nhạc nền miễn phí bản quyền ở đâu?", "a": "YouTube Audio Library, Freesound, Pixabay Music, Unsplash Audio."}
+    ],
+    "retrieval": {
+      "keywords": ["âm thanh", "audio", "sound", "nhạc nền", "voice"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "copyright": "©2025 DESIGN24"
+    }
   },
-  "booking_systems": {
-    "title": "Online Booking & Payment Systems",
-    "description": "Manage digital booking platforms and payment processing efficiently",
-    "skills": ["Booking Management", "Payment Processing", "Inventory Control", "Pricing Strategy"],
-    "tools": ["Booking.com", "Airbnb", "Stripe", "PayPal", "Square"]
+  "08-vfx": {
+    "id": "08-vfx",
+    "title": "Kỹ xảo",
+    "version": "1.0.0",
+    "last_updated": "2025-08-27",
+    "description": "Tạo ra hiệu ứng hình ảnh và 3D độc đáo cho video du lịch, tăng tính hấp dẫn",
+    "skills": [
+      "Visual effects cơ bản",
+      "Motion graphics",
+      "3D animation",
+      "Compositing",
+      "Text animations"
+    ],
+    "tools": ["After Effects", "Blender", "CapCut VFX", "DaVinci Resolve", "Canva Video"],
+    "knowledge": {
+      "key_concepts": ["Keyframe animation", "Compositing", "3D modeling", "Particle effects"],
+      "best_practices": ["Subtle effects", "Story-driven VFX", "Optimize render time", "Mobile-friendly"]
+    },
+    "faqs": [
+      {"q": "Có thể làm VFX trên điện thoại không?", "a": "Có, CapCut và InShot có nhiều VFX template sẵn, dễ sử dụng."},
+      {"q": "VFX nào phù hợp nhất cho video du lịch?", "a": "Transition mượt, text animation, speed ramping, color grading cinematic."}
+    ],
+    "retrieval": {
+      "keywords": ["kỹ xảo", "vfx", "visual effects", "animation", "3d"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "copyright": "©2025 DESIGN24"
+    }
   },
-  "sustainability": {
-    "title": "Sustainable Tourism Technology",
-    "description": "Implement eco-friendly technology solutions in tourism operations",
-    "skills": ["Carbon Footprint Tracking", "Sustainable Marketing", "Green Technology", "Impact Measurement"],
-    "tools": ["Sustainability Apps", "Carbon Calculators", "Green Certification Platforms", "Impact Dashboards"]
+  "09-voice": {
+    "id": "09-voice",
+    "title": "Voice",
+    "version": "1.0.0",
+    "last_updated": "2025-08-27",
+    "description": "Tạo giọng nói tự nhiên cho các phần lời thoại trong video hoặc bài giới thiệu",
+    "skills": [
+      "AI voice generation",
+      "Voice cloning",
+      "Text-to-speech optimization",
+      "Voice recording techniques",
+      "Audio post-production"
+    ],
+    "tools": ["ElevenLabs", "Murf.ai", "Speechify", "Azure Speech", "Google Text-to-Speech"],
+    "knowledge": {
+      "key_concepts": ["Voice synthesis", "Prosody", "Emotion in voice", "Audio quality"],
+      "best_practices": ["Natural intonation", "Clear pronunciation", "Appropriate pacing", "Emotion matching"]
+    },
+    "faqs": [
+      {"q": "AI voice có nghe tự nhiên không?", "a": "Hiện tại ElevenLabs và Murf.ai đã rất tự nhiên, khó phân biệt với người thật."},
+      {"q": "Có thể tạo giọng nói tiếng Việt không?", "a": "Có, nhiều tool hỗ trợ tiếng Việt chất lượng cao như FPT.AI, Zalo AI."}
+    ],
+    "retrieval": {
+      "keywords": ["voice", "giọng nói", "text to speech", "ai voice", "voiceover"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "copyright": "©2025 DESIGN24"
+    }
+  },
+  "10-music-creation": {
+    "id": "10-music-creation",
+    "title": "Sáng tạo âm nhạc",
+    "version": "1.0.0",
+    "last_updated": "2025-08-27",
+    "description": "Sáng tác nhạc nền hoặc giai điệu phù hợp với các video du lịch, tạo không khí độc đáo",
+    "skills": [
+      "AI music generation",
+      "Music composition",
+      "Sound design",
+      "Melody creation",
+      "Audio mixing"
+    ],
+    "tools": ["Suno.ai", "Udio", "AIVA", "GarageBand", "FL Studio", "Soundtrap"],
+    "knowledge": {
+      "key_concepts": ["Music theory basics", "Mood matching", "Copyright-free creation", "Audio mixing"],
+      "best_practices": ["Match video mood", "Loop-friendly", "Volume balanced", "Platform optimized"]
+    },
+    "faqs": [
+      {"q": "AI có thể sáng tác nhạc chuyên nghiệp không?", "a": "Có, Suno.ai và Udio tạo ra nhạc chất lượng studio, hoàn toàn bản quyền."},
+      {"q": "Nhạc nền nào phù hợp với video du lịch?", "a": "Upbeat, acoustic, tropical house, lo-fi - tùy thuộc vào tone của video."}
+    ],
+    "retrieval": {
+      "keywords": ["sáng tạo âm nhạc", "music creation", "ai music", "nhạc nền", "soundtrack"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "copyright": "©2025 DESIGN24"
+    }
   }
 };
 
@@ -273,13 +437,51 @@ function buildContextFromDB(query: string): string {
   }
 
   // ==== AI Skills for Tour Guides (10 kỹ năng) ====
-  const needAISkills = /(ai|kỹ năng|skill|photography|chụp ảnh|video|quay|dựng|âm thanh|voice|ký xảo|thiết kế|quảng cáo|âm nhạc|hướng dẫn viên|tour guide)/i.test(q);
-  const aiSkills = COURSE_DATABASE["photography"] as any;
-  if (aiSkills?.ten_skills && needAISkills) {
+  const needAISkills = /(ai|kỹ năng|skill|khóa học|course|chụp ảnh|video|quay|dựng|âm thanh|voice|ký xảo|thiết kế|quảng cáo|âm nhạc|hướng dẫn viên|tour guide)/i.test(q);
+  
+  // Tìm kiếm trong từng module để trả về thông tin phù hợp
+  const skillModules = [
+    "01-content-creation", "02-photography", "03-photo-editing", "04-ad-design", 
+    "05-video-shooting", "06-video-editing", "07-audio", "08-vfx", "09-voice", "10-music-creation"
+  ];
+  
+  if (needAISkills) {
+    // Trả về danh sách 10 kỹ năng
+    const skillsList = [
+      "1. Sáng tạo nội dung: Tạo ra nội dung hấp dẫn, từ bài viết đến các blog du lịch, tối ưu hóa theo xu hướng thị trường",
+      "2. Chụp ảnh: Kỹ thuật chụp ảnh đẹp với smartphone, tự động điều chỉnh ánh sáng, màu sắc và cải thiện chất lượng ảnh",
+      "3. Xử lý ảnh: Chỉnh sửa ảnh, cải thiện độ sắc nét, điều chỉnh màu sắc và loại bỏ phông nền không cần thiết",
+      "4. Thiết kế quảng cáo: Thiết kế quảng cáo du lịch bắt mắt, phù hợp với xu hướng và nhu cầu khách hàng",
+      "5. Quay video: Quay video chất lượng cao bằng smartphone, tự động điều chỉnh ánh sáng và góc quay để tạo thước phim đẹp mắt",
+      "6. Dựng video: Dựng video nhanh chóng và dễ dàng bằng CapCut, tự động chọn cảnh quay, ghép nối và tạo video hoàn chỉnh",
+      "7. Âm thanh: Cải thiện âm thanh trong video, loại bỏ tạp âm và thêm hiệu ứng âm thanh sống động",
+      "8. Kỹ xảo: Tạo ra hiệu ứng hình ảnh và 3D độc đáo cho video du lịch, tăng tính hấp dẫn",
+      "9. Voice: Tạo giọng nói tự nhiên cho các phần lời thoại trong video hoặc bài giới thiệu",
+      "10. Sáng tạo âm nhạc: Sáng tác nhạc nền hoặc giai điệu phù hợp với các video du lịch, tạo không khí độc đáo"
+    ];
+    
     blocks.push([
       "10 KỸ NĂNG AI CHO HƯỚNG DẪN VIÊN DU LỊCH",
-      aiSkills.ten_skills.join("\n")
+      skillsList.join("\n")
     ].join("\n"));
+    
+    // Thêm chi tiết về module cụ thể nếu có từ khóa liên quan
+    for (const moduleId of skillModules) {
+      const module = COURSE_DATABASE[moduleId] as any;
+      if (module && module.retrieval?.keywords) {
+        const moduleKeywords = module.retrieval.keywords.join("|");
+        const modulePattern = new RegExp(`(${moduleKeywords})`, "i");
+        if (modulePattern.test(q)) {
+          blocks.push([
+            `${module.title.toUpperCase()}`,
+            `Tools: ${module.tools.join(", ")}`,
+            `Skills: ${module.skills.join("; ")}`,
+            module.faqs?.length > 0 ? `FAQ: ${module.faqs[0].q} - ${module.faqs[0].a}` : ""
+          ].filter(Boolean).join("\n"));
+          break; // Chỉ thêm 1 module chi tiết để không quá dài
+        }
+      }
+    }
   }
 
   // fallback: nếu không khớp gì, vẫn nhét summary about ngắn để bot có danh tính
