@@ -93,11 +93,11 @@ export function ChatSidebar({
       {/* Header */}
       <div className="p-4 border-b border-sidebar-border">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-chat-gradient rounded-lg flex items-center justify-center p-1">
+          <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center border border-border">
             <img 
               src={logoDesign24} 
               alt="DESIGN24 Logo" 
-              className="w-full h-full object-contain"
+              className="w-8 h-8 object-contain"
             />
           </div>
           <div>
