@@ -137,78 +137,76 @@ export function ChatSidebar({
                   }`}
                   onClick={() => onSelectChat(session.id)}
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1 min-w-0">
-                      {editingId === session.id ? (
-                        <div className="flex items-center gap-1 mb-2">
-                          <Input
-                            value={editingTitle}
-                            onChange={(e) => setEditingTitle(e.target.value)}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') handleSaveEdit();
-                              if (e.key === 'Escape') handleCancelEdit();
-                            }}
-                            className="text-sm h-6 px-2"
-                            autoFocus
-                          />
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="w-6 h-6 p-0 text-green-600"
-                            onClick={handleSaveEdit}
-                          >
-                            <Check className="w-3 h-3" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="w-6 h-6 p-0 text-red-600"
-                            onClick={handleCancelEdit}
-                          >
-                            <X className="w-3 h-3" />
-                          </Button>
-                        </div>
-                      ) : (
-                        <h3 className="font-medium text-sm text-sidebar-foreground truncate group-hover:pr-8">
+                  {editingId === session.id ? (
+                    <div className="flex items-center gap-1 mb-2">
+                      <Input
+                        value={editingTitle}
+                        onChange={(e) => setEditingTitle(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') handleSaveEdit();
+                          if (e.key === 'Escape') handleCancelEdit();
+                        }}
+                        className="text-sm h-6 px-2 flex-1"
+                        autoFocus
+                      />
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="w-6 h-6 p-0 text-green-600 flex-shrink-0"
+                        onClick={handleSaveEdit}
+                      >
+                        <Check className="w-3 h-3" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="w-6 h-6 p-0 text-red-600 flex-shrink-0"
+                        onClick={handleCancelEdit}
+                      >
+                        <X className="w-3 h-3" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-medium text-sm text-sidebar-foreground truncate">
                           {truncateText(session.title, 30)}
                         </h3>
-                      )}
-                      <p className="text-xs text-muted-foreground mt-1 truncate">
-                        {truncateText(session.lastMessage, 40)}
-                      </p>
-                      <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
-                        <Clock className="w-3 h-3" />
-                        <span>{formatTime(session.timestamp)}</span>
-                        <span>•</span>
-                        <span>{session.messageCount} tin nhắn</span>
+                        <p className="text-xs text-muted-foreground mt-1 truncate">
+                          {truncateText(session.lastMessage, 40)}
+                        </p>
+                        <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
+                          <Clock className="w-3 h-3" />
+                          <span>{formatTime(session.timestamp)}</span>
+                          <span>•</span>
+                          <span>{session.messageCount} tin nhắn</span>
+                        </div>
                       </div>
-                    </div>
-                    
-                    {editingId !== session.id && (
-                      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      
+                      <div className="flex items-center gap-1 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="w-8 h-8 p-0 text-muted-foreground hover:text-primary"
+                          className="w-7 h-7 p-0 text-muted-foreground hover:text-primary hover:bg-sidebar-accent"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleStartEdit(session);
                           }}
                         >
-                          <Edit2 className="w-4 h-4" />
+                          <Edit2 className="w-3.5 h-3.5" />
                         </Button>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             <Button
                               variant="ghost"
                               size="sm"
-                              className="w-8 h-8 p-0 text-muted-foreground hover:text-destructive"
+                              className="w-7 h-7 p-0 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
                               onClick={(e) => {
                                 e.stopPropagation();
                                 setDeleteConfirmId(session.id);
                               }}
                             >
-                              <Trash2 className="w-4 h-4" />
+                              <Trash2 className="w-3.5 h-3.5" />
                             </Button>
                           </AlertDialogTrigger>
                           <AlertDialogContent>
@@ -233,8 +231,8 @@ export function ChatSidebar({
                           </AlertDialogContent>
                         </AlertDialog>
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
