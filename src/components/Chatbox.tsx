@@ -201,10 +201,7 @@ export function Chatbox() {
     createNewChat();
   };
 
-  // Show API key setup screen if not configured
-  if (!isApiKeyConfigured) {
-    return <ApiKeySetup onApiKeySet={handleApiKeySet} />;
-  }
+  // API key is now integrated, no setup required
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">

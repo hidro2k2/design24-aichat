@@ -278,11 +278,8 @@ class GeminiService {
   private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
 
   constructor() {
-    // Try to read API key from environment variables first, then localStorage
-    this.apiKey = (import.meta as any)?.env?.VITE_GEMINI_API_KEY || 
-                  localStorage.getItem('gemini_api_key') || "";
-    
-    // Don't throw error in constructor - let the app handle it gracefully
+    // Use integrated API key
+    this.apiKey = "AIzaSyBRXy3Ph2OPKrblTC2jWB__9cYT4hsQkig";
   }
 
   private getSystemPrompt(): string {
@@ -428,17 +425,12 @@ Nếu câu hỏi là về giới thiệu/thông tin cơ sở/điện thoại/đ�
 
   // Method to check if API key is configured
   isConfigured(): boolean {
-    return this.apiKey !== null && this.apiKey.trim() !== '';
+    return true; // Always configured with integrated API key
   }
 
-  // Method to set API key and save to localStorage
+  // Method to set API key (not needed with integrated key)
   setApiKey(apiKey: string): void {
-    this.apiKey = apiKey;
-    if (apiKey.trim()) {
-      localStorage.setItem('gemini_api_key', apiKey);
-    } else {
-      localStorage.removeItem('gemini_api_key');
-    }
+    // No-op since we use integrated API key
   }
 }
 
