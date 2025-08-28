@@ -544,7 +544,7 @@ class GeminiService {
 
   constructor() {
     // Use integrated API key
-    this.apiKey = "AIzaSyBRXy3Ph2OPKrblTC2jWB__9cYT4hsQkig";
+    this.apiKey = "AIzaSyDDc7HjCHASjVOlZ2ANWGCAdagvOs20Xlo";
   }
 
   private getSystemPrompt(): string {
