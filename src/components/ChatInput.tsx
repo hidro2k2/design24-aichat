@@ -68,7 +68,7 @@ export function ChatInput({ onSendMessage, isLoading, disabled = false }: ChatIn
       <div className="flex items-center justify-center mt-2">
         <p className="text-xs text-muted-foreground text-center">
           Được hỗ trợ bởi <span className="gradient-text font-medium">DESIGN24</span> • 
-          Trợ lý AI cho Hướng dẫn viên Du lịch
+          Trợ lý AI Đa lĩnh vực
         </p>
       </div>
     </div>
