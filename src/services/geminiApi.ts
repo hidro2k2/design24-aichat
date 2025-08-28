@@ -540,7 +540,7 @@ function buildContextFromDB(query: string): string {
 
 class GeminiService {
   private apiKey: string;
-  private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent';
+  private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
 
   constructor() {
     // Use integrated API key
