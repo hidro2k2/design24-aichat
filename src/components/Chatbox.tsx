@@ -165,6 +165,7 @@ export function Chatbox() {
     toast({
       title: "Tạo cuộc trò chuyện mới",
       description: "Bạn có thể bắt đầu cuộc trò chuyện mới.",
+      duration: 3500,
     });
   };
 
@@ -177,6 +178,7 @@ export function Chatbox() {
     toast({
       title: "Đã xóa cuộc trò chuyện",
       description: "Cuộc trò chuyện đã được xóa.",
+      duration: 3500,
     });
   };
 
@@ -185,6 +187,7 @@ export function Chatbox() {
     toast({
       title: "Đã xóa tất cả cuộc trò chuyện",
       description: "Tất cả cuộc trò chuyện đã được xóa.",
+      duration: 3500,
     });
   };
 
@@ -193,6 +196,7 @@ export function Chatbox() {
     toast({
       title: "Đã đổi tên cuộc trò chuyện",
       description: `Đã đổi tên thành "${newTitle}".`,
+      duration: 3500,
     });
   };
 
