@@ -10,6 +10,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useChatSessions } from '@/hooks/useChatSessions';
 import { geminiService } from '@/services/geminiApi';
 import { useToast } from '@/hooks/use-toast';
+import logoDesign24 from '@/assets/design24-logo.webp';
 
 interface TypingMessage {
   id: string;
@@ -285,8 +286,12 @@ export function Chatbox() {
             {/* Welcome message for new users */}
             {Object.keys(chatSessions).length === 0 && (
               <div className="text-center py-12">
-                <div className="w-16 h-16 bg-chat-gradient rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-primary-foreground font-bold text-2xl">D24</span>
+                <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 border border-border">
+                  <img 
+                    src={logoDesign24} 
+                    alt="DESIGN24 Logo" 
+                    className="w-12 h-12 object-contain"
+                  />
                 </div>
                 <h3 className="text-xl font-semibold mb-2 gradient-text">
                   Chào mừng đến với Trợ lý AI DESIGN24
