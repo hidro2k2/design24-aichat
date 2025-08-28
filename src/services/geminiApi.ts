@@ -407,87 +407,27 @@ const COURSE_DATABASE = {
   }
 };
 
-// Context router to select relevant database sections
+// Context router với quy tắc định tuyến rõ ràng
 function buildContextFromDB(query: string): string {
   const q = (query || "").toLowerCase();
   const blocks: string[] = [];
   
-  // ==== Admin AI Course routing keywords ====
-  const adminKeywords = ["hành chính công", "công vụ", "công văn", "dịch vụ công", "hồ sơ điện tử", "báo cáo số", "dashboard", "bảo mật dữ liệu", "an toàn thông tin", "chuyển đổi số", "eoffice", "văn bản", "thống kê", "automation"];
-  const tourismKeywords = ["du lịch", "tour", "hướng dẫn viên", "chụp ảnh", "quay phim", "dựng video"];
+  // 🔹 QUY TẮC ĐỊNH TUYẾN
+  // 1. Du lịch, tour, kỹ năng hướng dẫn viên → AI Du lịch (10 kỹ năng)
+  const tourismKeywords = ["du lịch", "tour", "hướng dẫn viên", "tour guide", "kỹ năng", "skill", "chụp ảnh", "quay phim", "dựng video", "âm thanh", "voice", "kỹ xảo", "thiết kế quảng cáo", "âm nhạc", "photography", "video", "audio", "vfx", "music"];
   
-  const isAdminQuery = adminKeywords.some(keyword => q.includes(keyword));
+  // 2. Hành chính công, văn bản, hồ sơ, báo cáo, dịch vụ công → AI Hành chính công (7 chuyên đề)
+  const adminKeywords = ["hành chính công", "công vụ", "công văn", "dịch vụ công", "hồ sơ điện tử", "báo cáo số", "dashboard", "bảo mật dữ liệu", "an toàn thông tin", "chuyển đổi số", "eoffice", "văn bản", "thống kê", "automation", "hồ sơ", "báo cáo"];
+  
+  // 3. Design24 (dịch vụ, branding, logo, TVC, web, in ấn) → About/Services
+  const design24Keywords = ["design24", "thiết kế", "logo", "branding", "tvc", "video marketing", "web", "app", "graphic", "in ấn", "copywriting", "digital marketing", "liên hệ", "contact", "giới thiệu", "about", "dịch vụ", "thông tin"];
+  
   const isTourismQuery = tourismKeywords.some(keyword => q.includes(keyword));
+  const isAdminQuery = adminKeywords.some(keyword => q.includes(keyword));
+  const isDesign24Query = design24Keywords.some(keyword => q.includes(keyword));
   
-  // Route to admin AI course if admin keywords and not tourism
-  if (isAdminQuery && !isTourismQuery) {
-    const adminCourse = COURSE_DATABASE["admin_ai_course"] as any;
-    if (adminCourse) {
-      blocks.push([
-        "KHÓA ỨNG DỤNG AI TRONG HÀNH CHÍNH CÔNG",
-        `${adminCourse.title} - ${adminCourse.description}`,
-        `Modules: ${adminCourse.modules.map((m: any) => m.title).join("; ")}`
-      ].join("\n"));
-      
-      // Find specific module if query matches
-      for (const module of adminCourse.modules) {
-        if (module.retrieval?.keywords) {
-          const moduleKeywords = module.retrieval.keywords.join("|");
-          const modulePattern = new RegExp(`(${moduleKeywords})`, "i");
-          if (modulePattern.test(q)) {
-            blocks.push([
-              `${module.title.toUpperCase()}`,
-              `Tools: ${module.tools.join(", ")}`,
-              `Skills: ${module.skills.join("; ")}`,
-              module.faqs?.length > 0 ? `FAQ: ${module.faqs[0].q} - ${module.faqs[0].a}` : ""
-            ].filter(Boolean).join("\n"));
-            break;
-          }
-        }
-      }
-      return blocks.join("\n\n").slice(0, 6000);
-    }
-  }
-
-  // ==== about / liên hệ ====
-  const about = COURSE_DATABASE["00-about-design24"] as any;
-  const askAbout = /(giới\s*thiệu|about|thông tin|liên hệ|contact|điện thoại|hotline|số\s*điện\s*thoại|địa chỉ|ở đâu|address|phone)/i.test(q);
-  if (about?.knowledge && askAbout) {
-    const k = about.knowledge;
-    blocks.push([
-      "ABOUT DESIGN24",
-      `Overview: ${k.company_overview}`,
-      `Services: ${k.core_services.join("; ")}`,
-      `Hotline: ${k.contacts.phone.join(" / ")}`,
-      `Email: ${k.contacts.email}`,
-      `Addresses: ${k.locations.join(" | ")}`,
-      `Tax ID: ${k.contacts.tax_id}`
-    ].join("\n"));
-  }
-
-  // ==== content creation ====
-  const needContent = /(content|nội dung|caption|blog|seo|tiêu đề|hashtag)/i.test(q);
-  const cc = COURSE_DATABASE["01-content-creation"] as any;
-  if (cc?.knowledge && needContent) {
-    blocks.push([
-      "CONTENT CREATION",
-      `Best practices: ${cc.knowledge.best_practices.join("; ")}`,
-      `Frameworks: AIDA, PAS, FAB`,
-      `Templates: ideation/outline/post`
-    ].join("\n"));
-  }
-
-  // ==== AI Skills for Tour Guides (10 kỹ năng) ====
-  const needAISkills = /(ai|kỹ năng|skill|khóa học|course|chụp ảnh|video|quay|dựng|âm thanh|voice|ký xảo|thiết kế|quảng cáo|âm nhạc|hướng dẫn viên|tour guide)/i.test(q);
-  
-  // Tìm kiếm trong từng module để trả về thông tin phù hợp
-  const skillModules = [
-    "01-content-creation", "02-photography", "03-photo-editing", "04-ad-design", 
-    "05-video-shooting", "06-video-editing", "07-audio", "08-vfx", "09-voice", "10-music-creation"
-  ];
-  
-  if (needAISkills) {
-    // Trả về danh sách 10 kỹ năng
+  // ===== ROUTE 1: DU LỊCH → AI Du lịch (10 kỹ năng) =====
+  if (isTourismQuery && !isAdminQuery) {
     const skillsList = [
       "1. Sáng tạo nội dung: Tạo ra nội dung hấp dẫn, từ bài viết đến các blog du lịch, tối ưu hóa theo xu hướng thị trường",
       "2. Chụp ảnh: Kỹ thuật chụp ảnh đẹp với smartphone, tự động điều chỉnh ánh sáng, màu sắc và cải thiện chất lượng ảnh",
@@ -502,11 +442,16 @@ function buildContextFromDB(query: string): string {
     ];
     
     blocks.push([
-      "10 KỸ NĂNG AI CHO HƯỚNG DẪN VIÊN DU LỊCH",
+      "🎯 10 KỸ NĂNG AI CHO HƯỚNG DẪN VIÊN DU LỊCH",
       skillsList.join("\n")
     ].join("\n"));
     
-    // Thêm chi tiết về module cụ thể nếu có từ khóa liên quan
+    // Thêm chi tiết module cụ thể nếu có từ khóa liên quan
+    const skillModules = [
+      "01-content-creation", "02-photography", "03-photo-editing", "04-ad-design", 
+      "05-video-shooting", "06-video-editing", "07-audio", "08-vfx", "09-voice", "10-music-creation"
+    ];
+    
     for (const moduleId of skillModules) {
       const module = COURSE_DATABASE[moduleId] as any;
       if (module && module.retrieval?.keywords) {
@@ -514,24 +459,84 @@ function buildContextFromDB(query: string): string {
         const modulePattern = new RegExp(`(${moduleKeywords})`, "i");
         if (modulePattern.test(q)) {
           blocks.push([
-            `${module.title.toUpperCase()}`,
+            `📚 ${module.title.toUpperCase()}`,
             `Tools: ${module.tools.join(", ")}`,
             `Skills: ${module.skills.join("; ")}`,
             module.faqs?.length > 0 ? `FAQ: ${module.faqs[0].q} - ${module.faqs[0].a}` : ""
           ].filter(Boolean).join("\n"));
-          break; // Chỉ thêm 1 module chi tiết để không quá dài
+          break;
         }
       }
     }
+    return blocks.join("\n\n").slice(0, 6000);
   }
-
-  // fallback: nếu không khớp gì, vẫn nhét summary about ngắn để bot có danh tính
-  if (!blocks.length && about?.knowledge) {
+  
+  // ===== ROUTE 2: HÀNH CHÍNH CÔNG → AI Hành chính công (7 chuyên đề) =====
+  if (isAdminQuery && !isTourismQuery) {
+    const adminCourse = COURSE_DATABASE["admin_ai_course"] as any;
+    if (adminCourse) {
+      blocks.push([
+        "🏛️ KHÓA ỨNG DỤNG AI TRONG HÀNH CHÍNH CÔNG (7 CHUYÊN ĐỀ)",
+        `${adminCourse.title} - ${adminCourse.description}`,
+        `Modules: ${adminCourse.modules.map((m: any) => m.title).join("; ")}`
+      ].join("\n"));
+      
+      // Tìm module cụ thể nếu query khớp
+      for (const module of adminCourse.modules) {
+        if (module.retrieval?.keywords) {
+          const moduleKeywords = module.retrieval.keywords.join("|");
+          const modulePattern = new RegExp(`(${moduleKeywords})`, "i");
+          if (modulePattern.test(q)) {
+            blocks.push([
+              `📋 ${module.title.toUpperCase()}`,
+              `Tools: ${module.tools.join(", ")}`,
+              `Skills: ${module.skills.join("; ")}`,
+              module.faqs?.length > 0 ? `FAQ: ${module.faqs[0].q} - ${module.faqs[0].a}` : ""
+            ].filter(Boolean).join("\n"));
+            break;
+          }
+        }
+      }
+      return blocks.join("\n\n").slice(0, 6000);
+    }
+  }
+  
+  // ===== ROUTE 3: DESIGN24 → About/Services =====
+  if (isDesign24Query) {
+    const about = COURSE_DATABASE["00-about-design24"] as any;
+    if (about?.knowledge) {
+      const k = about.knowledge;
+      blocks.push([
+        "🎨 ABOUT DESIGN24 X DƯƠNG",
+        `Overview: ${k.company_overview}`,
+        `Dịch vụ chính: ${k.core_services.join("; ")}`,
+        `Giá trị cốt lõi: ${k.values.join(", ")}`,
+        `Kinh nghiệm: ${k.experience}`,
+        k.contacts ? `Hotline: ${k.contacts.phone?.join(" / ") || "N/A"}` : "",
+        k.contacts ? `Email: ${k.contacts.email || "N/A"}` : "",
+        k.locations ? `Địa chỉ: ${k.locations.join(" | ")}` : "",
+        k.contacts ? `MST: ${k.contacts.tax_id || "N/A"}` : ""
+      ].filter(Boolean).join("\n"));
+      
+      // Thêm quy trình 7 bước nếu hỏi về quy trình
+      if (/(quy trình|process|làm thế nào|how)/i.test(q) && k.process_7_steps) {
+        blocks.push([
+          "🔄 QUY TRÌNH 7 BƯỚC",
+          k.process_7_steps.map((step: string, i: number) => `${i+1}. ${step}`).join("\n")
+        ].join("\n"));
+      }
+      return blocks.join("\n\n").slice(0, 6000);
+    }
+  }
+  
+  // ===== FALLBACK: Không match → Brief về DESIGN24 =====
+  const about = COURSE_DATABASE["00-about-design24"] as any;
+  if (about?.knowledge) {
     const k = about.knowledge;
     blocks.push([
-      "ABOUT DESIGN24 (brief)",
+      "🔹 DESIGN24 X DƯƠNG (brief)",
       `Overview: ${k.company_overview}`,
-      `Services: ${k.core_services.slice(0,5).join("; ")}`
+      `Dịch vụ: ${k.core_services.slice(0,5).join("; ")}`
     ].join("\n"));
   }
 
