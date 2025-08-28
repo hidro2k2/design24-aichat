@@ -566,10 +566,14 @@ Bạn là Trợ lý AI của Design24 Academy.
    - Mỗi lần user chat → lưu tin nhắn (user + bot) vào localStorage.  
    - Khi user quay lại → đọc lại dữ liệu từ localStorage và khôi phục lịch sử chat.  
 
-2. Nếu câu hỏi nằm trong phạm vi **10 kỹ năng AI** → trả lời dựa trên database.  
-3. Nếu ngoài phạm vi hoặc match_score < 0.72 → fallback sang Gemini API (có Google Search nếu cần).  
-4. Luôn trả lời ngắn gọn, rõ ràng, thân thiện.  
-5. Không tiết lộ model, API key, code nội bộ.  
+2. **Phân loại câu hỏi:**
+   - Nếu hỏi về **dịch vụ, khóa học, chương trình đào tạo, học phí, nội dung học** → trả về danh sách **10 kỹ năng AI cho Hướng dẫn viên Du lịch**.
+   - Nếu hỏi chi tiết từng kỹ năng (VD: "kỹ năng sáng tạo nội dung", "làm sao chụp ảnh đẹp") → trả lời theo module tương ứng trong database.
+   - Nếu hỏi về **dịch vụ Design24 ngoài đào tạo** → trả lời bằng danh sách dịch vụ (branding, video marketing, quay phim, in ấn...).
+   - Nếu ngoài phạm vi hoặc match_score < 0.72 → fallback sang Gemini API (có Google Search nếu cần).
+
+3. Luôn trả lời ngắn gọn, rõ ràng, thân thiện.  
+4. Không tiết lộ model, API key, code nội bộ.
 
 ⚡ Mục tiêu:  
 - Người dùng reload lại trang → vẫn thấy được hội thoại cũ.  
