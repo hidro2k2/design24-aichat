@@ -16,8 +16,12 @@ interface ChatMessage {
   isUser: boolean;
 }
 
-// Course database - 10 Kỹ năng AI cho Hướng dẫn viên Du lịch
+// Import admin AI course database
+import adminAiCourseDb from '../data/admin_ai_course.json';
+
+// Course database - 10 Kỹ năng AI cho Hướng dẫn viên Du lịch + Admin AI Course
 const COURSE_DATABASE = {
+  ...adminAiCourseDb,
   "00-about-design24": {
     "id": "00-about-design24",
     "title": "Thông tin chung về Design24",
@@ -407,6 +411,43 @@ const COURSE_DATABASE = {
 function buildContextFromDB(query: string): string {
   const q = (query || "").toLowerCase();
   const blocks: string[] = [];
+  
+  // ==== Admin AI Course routing keywords ====
+  const adminKeywords = ["hành chính công", "công vụ", "công văn", "dịch vụ công", "hồ sơ điện tử", "báo cáo số", "dashboard", "bảo mật dữ liệu", "an toàn thông tin", "chuyển đổi số", "eoffice", "văn bản", "thống kê", "automation"];
+  const tourismKeywords = ["du lịch", "tour", "hướng dẫn viên", "chụp ảnh", "quay phim", "dựng video"];
+  
+  const isAdminQuery = adminKeywords.some(keyword => q.includes(keyword));
+  const isTourismQuery = tourismKeywords.some(keyword => q.includes(keyword));
+  
+  // Route to admin AI course if admin keywords and not tourism
+  if (isAdminQuery && !isTourismQuery) {
+    const adminCourse = COURSE_DATABASE["admin_ai_course"] as any;
+    if (adminCourse) {
+      blocks.push([
+        "KHÓA ỨNG DỤNG AI TRONG HÀNH CHÍNH CÔNG",
+        `${adminCourse.title} - ${adminCourse.description}`,
+        `Modules: ${adminCourse.modules.map((m: any) => m.title).join("; ")}`
+      ].join("\n"));
+      
+      // Find specific module if query matches
+      for (const module of adminCourse.modules) {
+        if (module.retrieval?.keywords) {
+          const moduleKeywords = module.retrieval.keywords.join("|");
+          const modulePattern = new RegExp(`(${moduleKeywords})`, "i");
+          if (modulePattern.test(q)) {
+            blocks.push([
+              `${module.title.toUpperCase()}`,
+              `Tools: ${module.tools.join(", ")}`,
+              `Skills: ${module.skills.join("; ")}`,
+              module.faqs?.length > 0 ? `FAQ: ${module.faqs[0].q} - ${module.faqs[0].a}` : ""
+            ].filter(Boolean).join("\n"));
+            break;
+          }
+        }
+      }
+      return blocks.join("\n\n").slice(0, 6000);
+    }
+  }
 
   // ==== about / liên hệ ====
   const about = COURSE_DATABASE["00-about-design24"] as any;
