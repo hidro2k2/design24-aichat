@@ -19,9 +19,203 @@ interface ChatMessage {
 // Import admin AI course database
 import adminAiCourseDb from '../data/admin_ai_course.json';
 
-// Course database - 10 Kỹ năng AI cho Hướng dẫn viên Du lịch + Admin AI Course
+// Course database - 10 Kỹ năng AI cho Hướng dẫn viên Du lịch + Admin AI Course + Prompt Engineering
 const COURSE_DATABASE = {
   ...adminAiCourseDb,
+  "ai_prompt_image": {
+    "id": "ai-prompt-image",
+    "title": "Prompt Engineering – AI Image",
+    "version": "1.0.0",
+    "last_updated": "2025-08-30",
+    "description": "Hướng dẫn đầy đủ tạo ảnh AI cho Stable Diffusion / Flux Kontext (inpainting/outpainting) và Midjourney; kèm negative prompt & tham số chi tiết.",
+    "skills": [
+      "Viết prompt ảnh (subject, style, lighting, quality, context)",
+      "Dùng Negative Prompt để loại lỗi (blurry, lowres, bad anatomy, watermark…)",
+      "Áp dụng style (realistic, anime, cinematic...), camera & composition",
+      "Sử dụng tham số Midjourney (--ar, --v, --q, --seed, --style raw, --chaos, --niji)",
+      "Chọn công cụ phù hợp: Flux (chỉnh sửa theo ngữ cảnh), Midjourney (sáng tạo từ prompt)"
+    ],
+    "tools": ["Stable Diffusion", "Flux Kontext", "Midjourney", "DALL·E", "Gemini Image"],
+    "rulebook": {
+      "what_is_flux_kontext": "Công cụ AI chỉnh sửa ảnh theo ngữ cảnh: thêm/xóa chi tiết, đổi màu, thay nhân vật, khôi phục chi tiết, tạo biến thể; mạnh về inpainting/outpainting (context-aware).",
+      "what_is_midjourney": "Công cụ AI tạo ảnh mới từ prompt; mạnh về sáng tạo, concept art, style đa dạng (realistic, anime, cinematic, futuristic…).",
+      "core_rules": [
+        "Prompt = Mô tả + Phong cách + Ánh sáng + Chất lượng + Bối cảnh",
+        "Negative Prompt = Lọc lỗi thường gặp",
+        "Luôn viết tiếng Anh; không xuống dòng; dùng dấu phẩy phân tách",
+        "Đặt từ khóa quan trọng lên đầu prompt"
+      ],
+      "keyword_library": {
+        "art_styles": [
+          "Realistic, Hyper realistic, Photorealistic",
+          "Digital painting, Matte painting, Oil painting, Watercolor",
+          "Anime style, Manga style, Pixar style, Disney style",
+          "Cyberpunk, Steampunk, Futuristic, Medieval fantasy",
+          "Concept art, Character design, Fashion editorial"
+        ],
+        "lighting": [
+          "Cinematic lighting, Dramatic light, Studio lighting",
+          "Golden hour, Sunset light, Soft lighting",
+          "Neon light, Volumetric lighting, Rim light, Backlight",
+          "Overcast sky, Natural light, HDR lighting"
+        ],
+        "camera_composition": [
+          "Ultra wide shot, Close-up portrait, Full body shot",
+          "Isometric view, Bird's-eye view, Top-down",
+          "Depth of field, Bokeh, Tilt-shift, Fisheye lens",
+          "Cinematic framing, Symmetrical composition"
+        ],
+        "quality": [
+          "Ultra detailed, Hyper detail, Sharp focus",
+          "8k resolution, High definition, UHD, 4k render",
+          "Photorealistic skin, Texture detail, Smooth shading"
+        ]
+      },
+      "negative_prompt_db": [
+        "blurry, low quality, lowres, jpeg artifacts",
+        "bad anatomy, extra fingers, missing fingers, deformed hands",
+        "distorted face, cross-eye, ugly, disfigured",
+        "watermark, text, signature, logo",
+        "grainy, noisy, oversaturated, underexposed"
+      ],
+      "prompt_structure": {
+        "flux_sd": "Prompt: [subject], [style], [lighting], [quality], [background/context] | Negative Prompt: [lỗi cần tránh]",
+        "midjourney": "/imagine prompt: [subject], [style], [lighting], [quality], [background] --ar [ratio] --v [version] --q [quality] --style raw"
+      },
+      "midjourney_params": {
+        "ar": "Aspect Ratio (1:1, 16:9, 9:16, 21:9, 4:3)",
+        "v": "Phiên bản (V5.2, V6)",
+        "q": "Chất lượng (1 nhanh, 2 tốt, 5 rất chi tiết)",
+        "style_raw": "Giữ tính chân thực cao hơn",
+        "chaos": "Độ ngẫu nhiên (0–100)",
+        "seed": "Cố định kết quả lặp lại",
+        "niji": "Anime/manga mode"
+      },
+      "when_to_use": {
+        "flux": "Khi có ảnh gốc và cần chỉnh sửa theo ngữ cảnh (inpainting/outpainting, thay đổi/khôi phục chi tiết).",
+        "midjourney": "Khi cần tạo mới hoàn toàn hoặc tìm ý tưởng sáng tạo (poster, concept art, minh họa)."
+      }
+    },
+    "examples": [
+      {
+        "name": "Flux/SD – Portrait",
+        "prompt": "realistic portrait of a young woman, cinematic lighting, ultra detailed skin, elegant hairstyle, wearing red dress, 8k resolution",
+        "negative_prompt": "blurry, low quality, distorted face, extra fingers, watermark"
+      },
+      {
+        "name": "Midjourney – Cyberpunk City",
+        "prompt": "/imagine prompt: futuristic cyberpunk city skyline at night, neon lights glowing, rainy atmosphere, cinematic shot, ultra realistic --ar 21:9 --v 6"
+      }
+    ],
+    "retrieval": {
+      "keywords": ["ai image", "prompt ảnh", "flux", "stable diffusion", "midjourney", "dalle", "gemini image"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "source_notes": "Chuyển thể đầy đủ từ tài liệu hướng dẫn & rulebook ảnh",
+      "copyright": "©2025 DESIGN24"
+    }
+  },
+  "ai_prompt_video": {
+    "id": "ai-prompt-video",
+    "title": "Prompt Engineering – AI Video",
+    "version": "1.0.0",
+    "last_updated": "2025-08-30",
+    "description": "Rulebook chuẩn tạo phân cảnh video (JSON) kèm prompt ảnh scene để khớp nội dung; tuân thủ quy tắc không subtitle và mô tả kết thúc cảnh trong description.",
+    "skills": [
+      "Viết prompt JSON video theo cấu trúc chuẩn",
+      "Xây dựng scene: title, description, style, mood, camera_motion, objects, lighting, sound",
+      "Đặt spoken_dialogue (vi-VN) & spoken_language (mô tả vùng miền/giới tính/độ tuổi/phong cách nói)",
+      "Quản lý text_on_screen (không trùng thoại) & render (resolution/fps)",
+      "Viết prompt ảnh (Stable Diffusion) cho scene theo chuẩn tiếng Anh một dòng kèm Negative Prompt"
+    ],
+    "tools": ["VEO 3", "Kling AI", "Runway Gen-3", "Pika Labs", "Luma Dream Machine"],
+    "rulebook": {
+      "general_principles": [
+        "Giữ nguyên 100% chi tiết gốc ảnh/video đầu vào; không được làm sai lệch, biến dạng, làm mờ.",
+        "Chỉ được chèn thêm nhân vật/hành động theo yêu cầu.",
+        "Nhân vật phải đồng bộ xuyên suốt giữa ảnh và video: gương mặt, vóc dáng, trang phục, đạo cụ, ánh sáng, đổ bóng.",
+        "Không được hiển thị phụ đề (subtitle), popup, text trùng lặp với thoại.",
+        "Video phải chia nhỏ theo scene; mỗi scene gồm: (1) prompt ảnh chuẩn SD/Flux, (2) prompt video chuẩn JSON."
+      ],
+      "image_prompt_for_scene": {
+        "language": "English, one line, comma-separated, no line breaks, no bullets.",
+        "structure": "Prompt: mô tả chi tiết cần thêm (giữ nguyên ảnh gốc) | Negative prompt: loại bỏ yếu tố không mong muốn.",
+        "example": {
+          "prompt": "insert a Vietnamese woman wearing traditional brown áo bà ba with a southern khăn rằn scarf, standing naturally in the center entrance of the Phước Minh Cung temple, seamlessly blended into the original photo without altering any architecture, murals or calligraphy, realistic lighting, high detail",
+          "negative_prompt": "cartoon, blurry, fantasy render, missing inscriptions, altered architecture"
+        }
+      },
+      "json_video_structure": {
+        "fields": {
+          "title": "string (EN, không dấu)",
+          "description": "string (EN, phải có các câu kết thúc/scissor line theo quy tắc)",
+          "style": "string (EN)",
+          "mood": "string (EN)",
+          "camera_motion": "string (EN)",
+          "objects": "array<string, EN, viết thường: ví dụ [\"incense burner\", \"temple pillar\", \"woman in traditional dress\"]>",
+          "lighting": "string (EN)",
+          "sound": "string (EN)",
+          "spoken_dialogue": "string (VI, có dấu)",
+          "spoken_language": "string mô tả vùng miền/giới tính/độ tuổi/phong cách nói (VD: \"Nữ, miền Tây Nam Bộ, 20s, nhẹ nhàng\")",
+          "text_on_screen": {
+            "content": "string (chỉ dùng cho title card/graphic, không trùng thoại)",
+            "font": "string (nếu cần)"
+          },
+          "render": {
+            "resolution": "8K",
+            "frame_rate": "24fps"
+          }
+        },
+        "hard_rules_for_description": [
+          "Luôn kết thúc bằng: 'The spoken dialogue finishes slightly before the end of the scene, allowing a smooth visual transition.'",
+          "Và: 'This scene should end with the same framing and objects as the beginning of the next scene, and the spoken dialogue should finish slightly before the scene ends, to allow a smooth cut in the final video.'",
+          "Không hiển thị phụ đề trong video.",
+          "Nếu là cảnh cuối: thêm 'Scene fades out slowly in silence.' hoặc 'Fade out to black.' theo hướng dẫn."
+        ],
+        "subtitle_rule": "TUYỆT ĐỐI không tạo subtitle; text_on_screen chỉ dùng khi cần title card/graphic."
+      }
+    },
+    "knowledge": {
+      "checklist": [
+        "Đã có prompt ảnh scene (EN, một dòng) + Negative Prompt?",
+        "Trường JSON video đã đúng kiểu ngôn ngữ từng field?",
+        "Description đã chèn câu kết thúc chuyển cảnh mượt?",
+        "Không dùng subtitle; text_on_screen không lặp thoại?",
+        "Render: 8K/24fps đúng chuẩn?"
+      ],
+      "json_template_minimal": {
+        "title": "",
+        "description": "",
+        "style": "",
+        "mood": "",
+        "camera_motion": "",
+        "objects": [],
+        "lighting": "",
+        "sound": "",
+        "spoken_dialogue": "",
+        "spoken_language": "",
+        "text_on_screen": {
+          "content": "",
+          "font": ""
+        },
+        "render": {
+          "resolution": "8K",
+          "frame_rate": "24fps"
+        }
+      }
+    },
+    "retrieval": {
+      "keywords": ["prompt video", "ai video", "veo", "kling", "runway", "pika", "luma", "scene json", "no subtitle", "spoken_language"],
+      "match_threshold": 0.72
+    },
+    "metadata": {
+      "owner": "DESIGN24 Academy",
+      "source_notes": "Chuyển thể đầy đủ từ Rulebook Prompt AI Video (kèm prompt ảnh scene)",
+      "copyright": "©2025 DESIGN24"
+    }
+  },
   "00-about-design24": {
     "id": "00-about-design24",
     "title": "Thông tin chung về Design24",
@@ -413,6 +607,36 @@ function buildContextFromDB(query: string): string {
   const blocks: string[] = [];
   
   // 🔹 QUY TẮC ĐỊNH TUYẾN
+  
+  // ===== PROMPT ENGINEERING – IMAGE =====
+  const askPromptImage = /(prompt\s*(ảnh|image)|flux|stable\s*diffusion|midjourney|dall[ée]|gemini\s*image)/i.test(q);
+  const imgMod = COURSE_DATABASE["ai_prompt_image"] as any;
+  if (askPromptImage && imgMod) {
+    blocks.push([
+      "PROMPT ENGINEERING – AI IMAGE",
+      `Description: ${imgMod.description}`,
+      `Core rules: ${imgMod.rulebook.core_rules.join("; ")}`,
+      `Negative DB: ${imgMod.rulebook.negative_prompt_db.join("; ")}`,
+      `MJ params: ar/v/q/style_raw/chaos/seed/niji`,
+      `Tools: ${imgMod.tools.join(", ")}`
+    ].join("\n"));
+    return blocks.join("\n\n").slice(0, 6000);
+  }
+
+  // ===== PROMPT ENGINEERING – VIDEO =====
+  const askPromptVideo = /(prompt\s*video|ai\s*video|veo|kling|runway|pika|luma|scene\s*json)/i.test(q);
+  const vidMod = COURSE_DATABASE["ai_prompt_video"] as any;
+  if (askPromptVideo && vidMod) {
+    blocks.push([
+      "PROMPT ENGINEERING – AI VIDEO",
+      `Description: ${vidMod.description}`,
+      `JSON fields: title, description, style, mood, camera_motion, objects[], lighting, sound, spoken_dialogue (VI), spoken_language, text_on_screen, render`,
+      `Rules: no subtitle; description must end with smooth-transition lines; last scene fade out; include image prompt (EN, one line)`,
+      `Tools: ${vidMod.tools.join(", ")}`
+    ].join("\n"));
+    return blocks.join("\n\n").slice(0, 6000);
+  }
+
   // 1. Du lịch, tour, kỹ năng hướng dẫn viên → AI Du lịch (10 kỹ năng)
   const tourismKeywords = ["du lịch", "tour", "hướng dẫn viên", "tour guide", "kỹ năng", "skill", "chụp ảnh", "quay phim", "dựng video", "âm thanh", "voice", "kỹ xảo", "thiết kế quảng cáo", "âm nhạc", "photography", "video", "audio", "vfx", "music"];
   
