@@ -185,26 +185,74 @@ const COURSE_DATABASE = {
         "Không dùng subtitle; text_on_screen không lặp thoại?",
         "Render: 8K/24fps đúng chuẩn?"
       ],
-      "json_template_minimal": {
-        "title": "",
-        "description": "",
-        "style": "",
-        "mood": "",
-        "camera_motion": "",
-        "objects": [],
-        "lighting": "",
-        "sound": "",
-        "spoken_dialogue": "",
-        "spoken_language": "",
-        "text_on_screen": {
-          "content": "",
-          "font": ""
-        },
-        "render": {
-          "resolution": "8K",
-          "frame_rate": "24fps"
+    "unified_json_template": {
+      "title": "",
+      "description": "",
+      "category": "Fashion | Beauty | Travel | Drama | Commercial",
+      "duration": 0,
+      "aspect_ratio": "9:16 | 16:9",
+      "render": {
+        "resolution": "8K",
+        "frame_rate": "24fps"
+      },
+      "characters": [
+        {
+          "ref_id": "",
+          "name": "",
+          "dna_overrides": ""
         }
+      ],
+      "scenes": [
+        {
+          "id": "scene-1",
+          "duration": "8s",
+          "environment": "",
+          "action": "",
+          "style": "",
+          "mood": "",
+          "camera_motion": "",
+          "objects": [],
+          "lighting": "",
+          "sound": "",
+          "spoken_dialogue": "",
+          "spoken_language": "",
+          "text_on_screen": {
+            "content": "",
+            "font": ""
+          },
+          "tail": "",
+          "image_prompt_for_scene": {
+            "prompt": "",
+            "negative_prompt": ""
+          }
+        }
+      ],
+      "rules": {
+        "language": "vi-VN cho thoại; EN cho image_prompt_for_scene",
+        "veo_cinematic": [
+          "Mỗi scene ≤ 8 giây",
+          "Thoại kết thúc trước 2–3 giây so với hết cảnh",
+          "Không subtitle; text_on_screen chỉ dùng cho title card/graphic",
+          "Cảnh cuối fade out (ví dụ: 'Fade out to black.')"
+        ],
+        "description_must_end_with": [
+          "The spoken dialogue finishes slightly before the end of the scene, allowing a smooth visual transition.",
+          "This scene should end with the same framing and objects as the beginning of the next scene, and the spoken dialogue should finish slightly before the scene ends, to allow a smooth cut in the final video."
+        ]
+      },
+      "export": {
+        "copy_to_clipboard": true,
+        "download_json": true,
+        "filename_pattern": "veo-script-{slug}-{timestamp}.json",
+        "compatibility": "Veo/Kling/Runway 8K/24fps"
       }
+    },
+    "template_usage_notes": [
+      "category giúp auto preset (Style/Camera/Lighting/Mood) nhưng vẫn cho phép override",
+      "spoken_dialogue phải kết thúc trước 2–3 giây so với duration của scene", 
+      "image_prompt_for_scene.prompt (tiếng Anh, một dòng, có negative_prompt) để khớp nội dung cảnh",
+      "Trước khi export: loại bỏ các field rỗng/null/\"\" để JSON sạch đẹp"
+    ]
     },
     "retrieval": {
       "keywords": ["prompt video", "ai video", "veo", "kling", "runway", "pika", "luma", "scene json", "no subtitle", "spoken_language"],
