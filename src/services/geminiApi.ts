@@ -1,6 +1,8 @@
 // Gemini API service with secure key management
 // API key is stored securely and not exposed in source code
 
+import { getGeminiApiKey } from '@/config/api';
+
 interface GeminiResponse {
   candidates: Array<{
     content: {
@@ -820,8 +822,8 @@ class GeminiService {
   private endpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
 
   constructor() {
-    // Use integrated API key
-    this.apiKey = "AIzaSyDDc7HjCHASjVOlZ2ANWGCAdagvOs20Xlo";
+    // Get API key from config or localStorage
+    this.apiKey = getGeminiApiKey();
   }
 
   private getSystemPrompt(): string {
@@ -861,7 +863,10 @@ class GeminiService {
   }
 
   async sendMessage(messages: ChatMessage[], userMessage: string): Promise<string> {
-    if (!this.apiKey) {
+    // Get fresh API key each time in case it was updated in localStorage
+    this.apiKey = getGeminiApiKey();
+    
+    if (!this.apiKey || this.apiKey === 'your_gemini_api_key_here') {
       throw new Error('API_KEY_NOT_CONFIGURED');
     }
 
@@ -961,7 +966,8 @@ ${userMessage}
 
   // Method to check if API key is configured
   isConfigured(): boolean {
-    return true; // Always configured with integrated API key
+    const apiKey = getGeminiApiKey();
+    return apiKey && apiKey !== 'your_gemini_api_key_here';
   }
 
   // Method to set API key (not needed with integrated key)

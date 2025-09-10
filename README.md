@@ -1,4 +1,69 @@
-# Welcome to your Lovable project
+# DESIGN24 - AI Chat Assistant
+
+AI chatbot hỗ trợ cho khóa học "AI Skills for Tour Guides" của DESIGN24.
+
+## 🚀 Deploy lên Netlify
+
+### Bước 1: Cấu hình API Key
+Trước khi deploy, thay đổi API key trong file `src/config/api.ts`:
+
+```typescript
+export const API_CONFIG = {
+  // Thay đổi API key của bạn tại đây
+  GEMINI_API_KEY: 'your_actual_gemini_api_key_here',
+  
+  API_BASE_URL: 'https://generativelanguage.googleapis.com',
+} as const;
+```
+
+### Bước 2: Deploy
+1. Nén toàn bộ source code thành file ZIP
+2. Vào [Netlify](https://app.netlify.com/)
+3. Kéo thả file ZIP vào Netlify Deploy
+4. Netlify sẽ tự động build và deploy
+
+### Cấu hình Build
+- **Build Command**: `npm run build`
+- **Publish Directory**: `dist`
+- **Node Version**: 18
+
+## 🔧 Chạy Local
+
+```bash
+# Cài đặt dependencies
+npm install
+
+# Chạy development server
+npm run dev
+
+# Build production
+npm run build
+```
+
+## 📁 Cấu trúc Project
+
+```
+src/
+├── components/          # React components
+├── config/             # Cấu hình API
+├── data/               # Course database
+├── services/           # API services
+└── pages/              # App pages
+```
+
+## 🔑 Quản lý API Key
+
+Ứng dụng hỗ trợ 2 cách cấu hình API key:
+
+1. **Trong source code** (file `src/config/api.ts`) - Thích hợp cho deploy
+2. **Nhập từ UI** - API key sẽ được lưu vào localStorage
+
+## 📞 Hỗ trợ
+
+- Email: Design24.vn@gmail.com
+- Phone: 0704.888.009 | 0784.888.009
+
+---
 
 ## Project info
 
